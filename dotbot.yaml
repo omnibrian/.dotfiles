@@ -15,3 +15,6 @@
     ~/bin/kubectl-prom: bin/kubectl/prom.sh
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
+    ~/.ssh/config: .ssh/config
+    ~/.ssh/config.d/main: .ssh/config.d/main
+    ~/.ssh/config.d/aws: .ssh/config.d/aws
