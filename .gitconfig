@@ -1,0 +1,31 @@
+[fetch]
+	prune = true
+[push]
+	followTags = true
+[log]
+	mailmap = true
+[pull]
+	rebase = true
+[stash]
+	showPatch = true
+[alias]
+	a = add .
+	s = status
+	st = status
+	co = checkout
+	br = branch
+	c = commit
+	ci = commit
+	p = pull
+	unstage = reset HEAD --
+	get = clone
+	root = rev-parse --show-toplevel
+	lol = log --graph --oneline
+	lola = log --graph --oneline --all
+	in = fetch --all
+	out = push
+	outu = !git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\"
+	outf = push --force-with-lease
+	good = bisect good
+	bad = bisect bad
+	oops = commit --amend --no-edit

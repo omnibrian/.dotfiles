@@ -1,0 +1,17 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- link:
+    ~/bin/aws-ansible: bin/aws/ansible.sh
+    ~/bin/aws-assume: bin/aws/assume.sh
+    ~/bin/aws-audit: bin/aws/audit.py
+    ~/bin/aws-instances: bin/aws/instances.sh
+    ~/bin/aws-proxy: bin/aws/proxy.sh
+    ~/bin/aws-users: bin/aws/users.py
+    ~/bin/kubectl-eks: bin/kubectl/eks.sh
+    ~/bin/kubectl-kdiff: bin/kubectl/kdiff.sh
+    ~/bin/kubectl-prom: bin/kubectl/prom.sh
+    ~/.bash_aliases: .bash_aliases
+    ~/.bashrc: .bashrc
