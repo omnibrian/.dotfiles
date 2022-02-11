@@ -14,8 +14,20 @@ dotbot:
 git:
 	@echo ">> adding global git config"
 	git config -f $(GITCONFIG_FILE) -l | awk -F= '{ print $$1 " '"'"'" $$2 "'"'"'" }' | xargs -L 1 git config --global
-	@echo -e "\033[0;33m>> don't forget to set git config -g user.name and user.email!!\033[0m"
+	@echo -e "\033[0;33m>> don't forget to set git config --global user.name and user.email!!\033[0m"
+	@echo
 
-install: dotbot git
+fzf:
+ifeq (,$(wildcard ~/.fzf))
+	@echo ">> installing fzf"
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install --key-bindings --completion --no-update-rc
+	@echo
+else
+	@echo ">> fzf already installed, skipping install"
+	@echo
+endif
+
+install: dotbot git fzf
 	@echo
 	@echo -e "\033[0;32m>> configuration has been installed\033[0m"

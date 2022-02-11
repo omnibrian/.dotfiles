@@ -2,8 +2,10 @@
 #
 # Note: this file is meant to be sourced in bash and zsh
 
-export VISUAL=vim
-export EDITOR=$VISUAL
+# ================ exports ============================================
+export VISUAL=${VISUAL:-vim}
+export EDITOR=${EDITOR:-vim}
+export PAGER=${PAGER:-less}
 export SYSTEMD_PAGER=  # disable systemctl's auto-paging
 export AWS_PAGER=      # disable awscli auto-paging
 
@@ -21,10 +23,30 @@ addpath() {
 addpath "$HOME/.local/bin"
 addpath "$HOME/bin"
 
-# aliases
-alias ll='ls -l'
-alias la='ls -la'
-alias l='ls -lah'
+# ls colors
+COLORS=
+
+if [[ -e "$HOME/.dircolors.256color" ]] &&
+		[[ "$(tty -s && tput colors 2>/dev/null)" = "256" ]] ; then
+	COLORS="$HOME/.dircolors.256color"
+elif [[ -e "$HOME/.dircolors" ]] ; then
+	COLORS="$HOME/.dircolors"
+fi
+
+if [[ -n "$COLORS" ]] ; then
+	eval "$(dircolors --sh $COLORS)"
+fi
+# ================ exports ============================================
+
+
+# ================ aliases ============================================
+alias ls='ls --color=auto'
+alias ll='ls --color=auto -l'
+alias la='ls --color=auto -la'
+alias l='ls --color=auto -lah'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 alias g='git'
 alias cdd='cd $HOME/Downloads'
 alias cdg='cd $HOME/git'
@@ -38,7 +60,10 @@ alias _='sudo'
 alias k='kubectl'
 alias kc='kubectx'
 alias kn='kubens'
+# ================ aliases ============================================
 
+
+# ================ utilities ==========================================
 # handle compressed packages
 extract() {
 	if [[ -f $1 ]] ; then
@@ -61,3 +86,4 @@ extract() {
 		echo "'$1' is not a valid file"
 	fi
 }
+# ================ utilities ==========================================
