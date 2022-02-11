@@ -33,7 +33,7 @@ setopt extended_history
 setopt extended_glob
 
 # dont have * match .dotfiles
-unsetopt glob_dots
+setopt glob_dots
 
 # ensure the entire command path is hashed first when completion is
 # attempted
@@ -129,7 +129,7 @@ zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*'         group-name ''
 
 # use menu when matches dont fit on screen
-zstyle ':completion:*' menu yes select=long
+zstyle ':completion:*' menu yes=long select
 
 zstyle ':completion:*:messages' format ' -- %d --'
 zstyle ':completion:*:options'  auto-description '%d'
@@ -194,6 +194,14 @@ zstyle ':completion:*:complete:*' cache-path $HOME/.cache/zshcompletion
 autoload -Uz compinit
 compinit
 
+# history on up/down arrows
+autoload -Uz up-line-or-beginning-search
+autoload -Uz down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+
 # bash completion
 autoload -Uz bashcompinit
 bashcompinit
@@ -220,25 +228,8 @@ PS3='#? '
 PS4='+%N:%i>'
 
 # right-side prompt
-git-prompt() {
-	local git_branch
-	type git &>/dev/null || return
-
-	git_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-	[[ -z "$git_branch" ]] && return
-
-	local git_dirty
-	[[ -n "$(git status --porcelain 2>/dev/null)" ]] && git_dirty='*'
-
-	echo "%{$fg[red]%}${git_dirty}%{$fg[green]%}[${git_branch}]%b"
-}
-
-RPS1='$(git-prompt)%{$fg[white]%}[%D{%H:%M}]%{%b%}'
+RPS1='%{$fg[red]%}$(git-dirty)%{$fg[green]%}$(git-branch)%{$fg[white]%}[%D{%H:%M}]%{%b%}'
 
 # main prompt
-shrink-path() {
-	echo ${PWD/#$HOME/\~} | awk -F/ '{ for(i=1; i<=NF-1; i++) { printf substr($i,1,1) "/" } printf $NF }'
-}
-
 PROMPT='%{$fg[cyan]%}[$(shrink-path)% ]%(?.%{$fg[green]%}.%{$fg[red]%})%B%(!.#.$)%b '
 # ================ prompt =============================================

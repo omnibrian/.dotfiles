@@ -86,4 +86,24 @@ extract() {
 		echo "'$1' is not a valid file"
 	fi
 }
+
+shrink-path() {
+	echo ${PWD/#$HOME/\~} | awk -F/ '{ for(i=1; i<=NF-1; i++) { printf substr($i,1,1) "/" } printf $NF }'
+}
+
+git-branch() {
+	type git &>/dev/null || return
+
+	local git_branch
+	git_branch=$(git describe --contains --all HEAD 2>/dev/null)
+	[[ -z "$git_branch" ]] && return
+
+	echo "[${git_branch}]"
+}
+
+git-dirty() {
+	type git &>/dev/null || return
+	[[ -n "$(git status --porcelain 2>/dev/null)" ]] || return
+	echo '*'
+}
 # ================ utilities ==========================================

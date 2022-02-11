@@ -23,3 +23,13 @@ completeif() {
 
 completeif /usr/local/bin/aws_completer aws
 # ================ completion =========================================
+
+
+# ================ prompt =============================================
+bash-prompt() {
+	local rc="$?"
+	PS1="\[\e[39m\][\A]\[\e[36m\][$(shrink-path)]\[\e[34m\]$(git-branch)\[\e[32m\]$([[ $rc -eq 0 ]] || echo '\[\e[31m\]')\$\[\e[31m\]$(git-dirty)\[\e[0m\] "
+}
+
+PROMPT_COMMAND=bash-prompt
+# ================ prompt =============================================
