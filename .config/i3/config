@@ -1,0 +1,258 @@
+# i3 config file
+#
+# http://i3wm.org/docs/userguide.html
+
+
+# ================ base ===============================================
+# set Super as $mod
+set $mod Mod4
+
+font pango:IBM Plex Mono, DejaVu Sans Mono 8
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# exit i3 (log out)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Confirm i3 exit?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# reload i3 config
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace
+bindsym $mod+Shift+r restart
+
+# $mod+Enter => terminal
+bindsym $mod+Return exec TERMINAL=terminator i3-sensible-terminal
+
+# kill current window
+bindsym $mod+Shift+q kill
+
+# start rofi (in dmenu mode)
+bindsym $mod+d exec "rofi -no-lazy-grab -show drun -modi run#drun#window"
+# ================ base ===============================================
+
+
+# ================ movement ===========================================
+# set variables for home row movements
+set $left h
+set $down j
+set $up k
+set $right l
+
+# return to previous workspace
+bindsym $mod+Tab workspace back_and_forth
+
+# change focus
+bindsym $mod+$left  focus left
+bindsym $mod+$right focus right
+bindsym $mod+$up    focus up
+bindsym $mod+$down  focus down
+
+# change focus with arrows
+bindsym $mod+Left  focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up    focus up
+bindsym $mod+Down  focus down
+
+# move focused window
+bindsym $mod+Shift+$left  move left
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$up    move up
+bindsym $mod+Shift+$down  move down
+
+# move focused window with arrows
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Down  move down
+# ================ movement ===========================================
+
+
+# ================ layout =============================================
+# horizontal split
+bindsym $mod+e split h
+
+# vertical split
+bindsym $mod+o split v
+
+# fullscreen focused window (also bind Ctrl+Alt+f because muscle memory)
+bindsym $mod+f         fullscreen toggle
+bindsym Control+Mod1+f fullscreen toggle
+
+# change container layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+t layout toggle split
+
+# toggle floating
+bindsym $mod+Shift+space floating toggle; [floating] border normal 0; [tiling] border pixel 2
+
+# switch focus between tiling & floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus parent container
+bindsym $mod+a focus parent
+
+# focus child container
+bindsym $mod+c focus child
+# ================ layout =============================================
+
+
+# ================ workspaces =========================================
+set $workspace1 1
+set $workspace2 2
+set $workspace3 3
+set $workspace4 4
+set $workspace5 5
+set $workspace6 6
+set $workspace7 7
+set $workspace8 8
+set $workspace9 9
+set $workspace10 10
+set $workspace11 11
+set $workspace12 12
+
+# switch to workspaces
+bindsym $mod+1     workspace $workspace1
+bindsym $mod+2     workspace $workspace2
+bindsym $mod+3     workspace $workspace3
+bindsym $mod+4     workspace $workspace4
+bindsym $mod+5     workspace $workspace5
+bindsym $mod+6     workspace $workspace6
+bindsym $mod+7     workspace $workspace7
+bindsym $mod+8     workspace $workspace8
+bindsym $mod+9     workspace $workspace9
+bindsym $mod+0     workspace $workspace10
+bindsym $mod+minus workspace $workspace11
+bindsym $mod+equal workspace $workspace12
+
+# move focused window to workspace
+bindsym $mod+Shift+1     move container to workspace $workspace1
+bindsym $mod+Shift+2     move container to workspace $workspace2
+bindsym $mod+Shift+3     move container to workspace $workspace3
+bindsym $mod+Shift+4     move container to workspace $workspace4
+bindsym $mod+Shift+5     move container to workspace $workspace5
+bindsym $mod+Shift+6     move container to workspace $workspace6
+bindsym $mod+Shift+7     move container to workspace $workspace7
+bindsym $mod+Shift+8     move container to workspace $workspace8
+bindsym $mod+Shift+9     move container to workspace $workspace9
+bindsym $mod+Shift+0     move container to workspace $workspace10
+bindsym $mod+Shift+minus move container to workspace $workspace11
+bindsym $mod+Shift+equal move container to workspace $workspace12
+# ================ workspaces =========================================
+
+
+# ================ resize =============================================
+# mode for resizing windows
+set $resize "resize"
+
+mode $resize {
+	# these bindings trigger as soon as you enter resize mode
+
+	# left or up => shrink
+	# right or down => grow
+	bindsym $left  resize shrink width  10 px or 10 ppt
+	bindsym $right resize grow   width  10 px or 10 ppt
+	bindsym $up    resize shrink height 10 px or 10 ppt
+	bindsym $down  resize grow   height 10 px or 10 ppt
+
+	# and with arrows
+	bindsym Left  resize shrink width  10 px or 10 ppt
+	bindsym Right resize grow   width  10 px or 10 ppt
+	bindsym Up    resize shrink height 10 px or 10 ppt
+	bindsym Down  resize grow   height 10 px or 10 ppt
+
+	# enter or escape to exit resize mode
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode $resize
+# ================ resize =============================================
+
+
+# ================ system =============================================
+# lock screen
+set $lock_screen i3lock
+
+# auto-lock on timeout & sleep/suspend
+exec --no-startup-id xss-lock -- $lock_screen  # TODO configure timeout
+
+# lock screen
+bindsym $mod+q exec --no-startup-id $lock_screen
+# ================ system =============================================
+
+
+# ================ startup ============================================
+# background
+exec_always --no-startup-id feh --bg-scale ~/Pictures/backgrounds/i3wall.png
+
+# status bar
+exec_always --no-startup-id ~/bin/polybar-launch
+
+# caps lock => control
+exec --no-startup-id xmodmap ~/.xmodmaprc
+
+# notifications
+exec --no-startup-id dunst
+
+# start XDG autostart .desktop files
+exec --no-startup-id dex --autostart --environment i3
+
+# GNOME settings daemon
+exec --no-startup-id /usr/lib/gsd-xsettings
+
+# gnome flashback
+exec --no-startup-id gnome-flashback
+# ================ startup ============================================
+
+
+# ================ decoration =========================================
+# borders
+for_window [tiling] border pixel 2
+for_window [class=".*"] title_format " > %title"
+
+# colors
+set $background #101114
+set $foreground #C8CCD5
+# black
+set $color0     #101114
+# red
+set $color1     #E06C75
+# green
+set $color2     #99C37A
+# yellow
+set $color3     #E5C07C
+# blue
+set $color4     #61AFEF
+# purple
+set $color5     #C877DD
+# teal
+set $color6     #56B6C4
+# gray
+set $color7     #ABB1BF
+
+# yellow indicator
+set $indic3     #B5904C
+
+# class                 border  backgr  text    indic   child_border
+client.focused          $color3 $color3 $color0 $indic6 $color3
+client.focused_inactive $color4 $color4 $color0 $color6 $color4
+client.unfocused        $color7 $color7 $color0 $color7 $color7
+client.urgent           $color1 $color1 $color0 $color5 $color1
+
+client.background $background
+
+# gaps
+gaps inner 5
+gaps outer 0
+
+# only add borders when multiple windows in workspace
+smart_borders no_gaps
+# ================ decoration =========================================
+
+
+# ================ floating ===========================================
+for_window [title="Terminator Preferences"] floating enable
+for_window [title="Guake Preferences"]      floating enable
+# ================ floating ===========================================

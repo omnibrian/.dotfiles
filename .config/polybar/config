@@ -1,0 +1,189 @@
+[global/wm]
+; adjust _NET_WM_STRUT_PARTIAL top value
+; used for top aligned bars
+margin-bottom = 0
+
+; adjust _NET_WM_STRUT_PARTIAL bottom value
+; used for bottom aligned bars
+margin-top = 0
+
+;; imports
+include-file = ~/.config/polybar/colors
+include-file = ~/.config/polybar/modules
+include-file = ~/.config/polybar/user_modules
+
+[bar/main]
+; if unspecified, applicatoin will pick the first one it finds
+; use either of the following to list available outputs:
+; $ polybar -m | cut -d: -f1
+; $ xrandr -q | grep ' connected' | cut -d' ' -f1
+monitor =
+
+; use specified monitor as fallback if main one is not found
+monitor-fallback =
+
+; require monitor to be in a connected state
+; xrandr sometimes reports monitor as being disconnected (when in use)
+monitor-strict = false
+
+; tell wm not to configure the window
+; use this to detach the bar if wm is locking its size/position
+override-redirect = false
+
+; put the bar on the bottom
+bottom = false
+
+; prefer fixed center position for `modules-center` block
+; when false, center position will be based on the size of other blocks
+fixed-center = true
+
+; dimension defined as pixel value or percentage
+; the percentage can optionally be extended with a pixel offset
+; like: 50%:-10, will result in width/height of 50% minus 10 pixels
+width  = 100%
+height = 35
+
+; offset defined as pixel value or percentage similar to dimensions
+offset-x = 0.5%
+offset-y = 1%
+
+;; colors
+background = ${color.alpha}
+foreground = ${color.foreground}
+
+; values used for rounded corners
+; can also use individual settings:
+;   radius-{top,bottom}
+radius = 0.0
+
+; under/overline pixel size & argb color
+underline-size  = 2
+underline-color = ${color.foreground}
+
+; values applied to all borders
+; can also use individual settings:
+;   border-{left,top,right,bottom}-{color,size}
+; borders are added to bar height so height is effectively:
+;   height + top-border + bottom-border
+; but width stays constrained to witdh key, so the borders
+; cut into the effective width of the bar
+border-color = ${color.alpha}
+border-size  = 0
+border-top-size = 5
+
+; number of spaces to add at the beginning/end of bar
+; can also use individual settings:
+;   padding-{left,right}
+padding = 1
+
+; number of spaces to add before/after each module
+; can also use individual settings:
+;   module-margin-{left,right}
+module-margin = 0
+
+;; fonts
+; can use fc-match to check if the fontconfig pattern will resolve:
+; $ fc-match '<fontconfig pattern>'
+; font-N = <fontconfig pattern>;<vertical offset>
+font-0 = "IBM Plex Mono:pixelsize=10;3"
+font-1 = "FontAwesome:pixelsize=10;3"
+font-2 = "Siji:pixelsize=10;3"
+
+;; module groups
+;modules-left = i3 sep mpd sep title  ; TODO once mpd is figured out
+modules-left = i3 sep title
+modules-center =
+modules-right = cpu memory battery date sep powermenu sep
+
+; separator will be inserted between the output of each module
+separator =
+
+; opacity value between 0.0 & 1.0 used on face in/out
+dim-value = 1.0
+
+; value to be used to set the WM_NAME atom
+; if empty, atom value will be created from the following
+; template: polybar-[BAR]_[MONITOR]
+; NOTE: the placeholders aren't available for custom values
+wm-name =
+
+; locale used to localize various module data
+locale = en_CA.UTF-8
+
+; position of the system tray window
+; if empty, tray support will be disabled
+; NOTE: a center aligned tray will cover center aligned modules
+;
+; available positions:
+;   left
+;   center
+;   right
+;   none
+tray-position = right
+
+; if true, bar will not shift its contents when tray changes
+tray-detached = false
+
+; tray icon max size
+tray-maxsize = 16
+
+; background color for tray
+tray-background = ${color.background}
+
+; tray offset as pixel value or percentage
+tray-offset-x = -17
+tray-offset-y = -11
+
+; pad sides of each tray icon
+tray-padding = 0
+
+; scale factor for tray clients
+tray-scale = 1.0
+
+; enable support for inter-process messaging
+enable-ipc = true
+
+; fallback click handlers if there's no matching module handler found
+click-left =
+click-middle =
+click-right =
+double-click-left =
+double-click-middle =
+double-click-right =
+scroll-up =
+scroll-down =
+
+; requires polybar to be built with xcursor support (xcb-util-cursor)
+; available options:
+;   default   (default pointer as before, can also be an empty string)
+;   pointer   (typically in the form of a hand)
+;   ns-resize (up & down arrows, can be used to indicate scrolling)
+cursor-click  =
+cursor-scroll =
+;scroll-up     = i3-msg workspace next_on_output
+;scroll-down   = i3-msg workspace prev_on_output
+
+[settings]
+; the throttle settings lets the eventloop swallow up til X events
+; if they happen within Y milliseconds after first event was received.
+; this is done to prevent flood of update events
+throttle-output = 5
+throttle-output-for = 10
+
+; time in millis that the input handler will wait between processing events
+;throttle-input-for = 30
+
+; reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
+screenchange-reload = false
+
+; compositing operators
+; @see: https://www.cairographics.org/manual/cairo-cairo-t.html#cairo-operator-t
+compositing-background = source
+compositing-foreground = over
+compositing-overline   = over
+compositing-underline  = over
+compositing-border     = over
+
+; enables pseudo-transparency for polybar
+; allows transparency without a compositor
+pseudo-transparency = true

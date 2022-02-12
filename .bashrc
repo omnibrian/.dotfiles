@@ -8,7 +8,7 @@ sourceif() {
 }
 
 sourceif /etc/bashrc
-sourceif $HOME/.bash_env
+sourceif $HOME/.env
 sourceif $HOME/.bash_aliases
 sourceif $HOME/.fzf.bash
 # ================ common-files =======================================

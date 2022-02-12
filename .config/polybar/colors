@@ -1,0 +1,27 @@
+[color]
+;; main colors
+background     = #101114
+;foreground     = #C8CCD5
+foreground     = #101114
+foreground-alt = #FFFFFF
+alpha          = #00000000
+
+;; standard colors
+color0 = #101114
+color1 = #E06C75
+color2 = #99C37A
+color3 = #E5C07C
+color4 = #61AFEF
+color5 = #C877DD
+color6 = #56B6C4
+color7 = #ABB1BF
+
+;; high intensity colors
+color8  = #545863
+color9  = #E06C75
+color10 = #99C37A
+color11 = #E5C07C
+color12 = #61AFEF
+color13 = #C877DD
+color14 = #56B6C4
+color15 = #C8CCD5

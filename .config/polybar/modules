@@ -1,0 +1,619 @@
+[module/alsa]
+type = internal/alsa
+
+; soundcard to use
+; usually in format hw:#
+; you can find the card numbers in `/proc/asound/cards`
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+
+; name of the master, speaker, and headphone mixers
+; to list available mixer controls:
+; $ amixer scontrols | sed -nr "s/.*'([[:alnum:]]+)'.*/\1/p"
+;
+; if msater, speaker, or headphone-soundcard isn't the default,
+; use `amixer -c # scontrols` instead
+master-mixer = Master
+
+; volume change interval
+interval = 5
+
+; available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+format-volume-background = ${color.color4}
+format-volume-padding = 2
+
+; available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-muted = <label-muted>
+format-muted-prefix = 
+format-muted-prefix-font = 2
+format-muted-background = ${color.color4}
+format-muted-padding = 2
+
+; available tokens:
+;   %percentage% (default)
+label-volume = %percentage%%
+
+; available tokens:
+;   %percentage% (default)
+label-muted = Muted
+label-muted-foreground = ${color.foreground}
+
+; only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-font = 2
+
+; if defined, will replace <ramp-volume> when
+; headphones are plugged in to `headphones_control_numid`
+; if undefined, <ramp-volume> will be used for both
+; only applies if <ramp-volume> is used
+ramp-headphones-0 = 
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; sink to be used, if it exists
+; to find sinks (name field):
+; $ pacmd list-sinks
+;sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+; use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+use-ui-max = false
+
+; interval for volume increase/decrease (percentage)
+interval = 5
+
+; available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
+format-volume-background = ${color.color3}
+format-volume-padding = 2
+
+; available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-muted = <label-muted>
+format-muted-prefix = 
+format-muted-prefix-font = 2
+format-muted-background = ${color.color3}
+format-muted-padding = 2
+
+; available tokens:
+;   %percentage% (default)
+label-volume = %percentage%%
+
+; available tokens:
+;   %percentage% (default)
+label-muted = " Muted"
+label-muted-foreground = ${color.foreground}
+
+; only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-font = 2
+
+
+[module/mpd]
+type = internal/mpd
+
+;; TODO once mopidy is figured out
+
+
+[module/backlight]
+type = internal/backlight
+
+; use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+; available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format = <ramp> <label>
+format-background = ${color.color2}
+format-padding = 2
+
+; available tokens:
+;   %percentage% (default)
+label = %percentage%%
+
+; only applies if <ramp> is used
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-font = 2
+
+
+[module/battery]
+type = internal/battery
+
+; useful if batter never reaches 100%
+full-at = 99
+
+; use the following command to list batteries & adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = AC
+
+; fallback when inotify event hasn't been reported in this many seconds
+; manually poll for new values
+; for systems that don't report events on sysfs/procfs
+;
+; disable polling by setting the interval to 0
+poll-interval = 5
+
+; uses `date` format string, see `man date` for details
+; default: %H:%M:%S
+time-format = %H:%M
+
+; available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+format-charging-background = ${color.color3}
+format-charging-padding = 2
+
+; available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-background = ${color.color3}
+format-discharging-padding = 2
+
+; available tags
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-full = <label-full>
+format-full-prefix = 
+format-full-prefix-font = 2
+format-full-background = ${color.color3}
+format-full-padding = 2
+
+; available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = %percentage%%
+
+; available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%%
+
+; available tokens:
+;   %percentage% (default)
+label-full = " Full"
+
+; only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-font = 2
+
+; only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-font = 2
+
+; framerate in milliseconds
+animation-charging-framerate = 750
+
+
+[module/cpu]
+type = internal/cpu
+
+; seconds to sleep between updates
+; default: 1
+interval = 0.5
+
+; available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+format = <label>
+format-prefix = 
+format-prefix-font = 2
+format-background = ${color.color4}
+format-foreground = ${color.foreground}
+format-padding = 2
+
+; available tokens:
+;   %percentage% (default) - total cpu load averaged over all cores
+;   %percentage-sum%       - cumulative load on all cores
+;   %percentage-cores%     - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label = " %percentage%%"
+
+
+[module/temperature]
+type = internal/temperature
+
+; seconds to sleep between updates
+interval = 0.5
+
+; thermal zone to use
+; use the following command to list all zone types:
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $<$i/type)"; done
+themal-zone = 0
+
+; full path of temperature sysfs path
+; use `sensors` to find preferred temp source, then run:
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find desired file path
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
+
+; threshold temperature to display warning label (in degress celsius)
+; default: 80
+warn-temperature = 75
+
+; whether or not to show units next to the temp tokens (°C, °F)
+units = true
+
+; available tags:
+;   <label> (default)
+;   <ramp>
+format = <ramp> <label>
+format-background = ${color.color6}
+format-padding = 2
+
+; available tags:
+;   <label-warn> (default)
+;   <ramp>
+format-warn = <ramp> <label-warn>
+format-warn-background = ${color.color6}
+format-warn-foreground = ${color.background}
+format-warn-padding = 2
+
+; available tokens:
+;   %temperature%   (deprecated)
+;   %temperature-c% (default, temp in °C)
+;   %temperature-f% (temperature in °F)
+label = %temperature-c%
+label-warn = %temperature-c%
+
+; only applies if <ramp> is used
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-font = 2
+
+
+[module/filesystem]
+type = internal/fs
+
+; mountpoints to display
+mount-0 = /
+
+; seconds to sleep between updates
+interval = 30
+
+; display fixed precision values
+fixed-values = true
+
+; available tags:
+;   <label-mounted> (default)
+;   <bar-free>
+;   <bar-used>
+;   <ramp-capacity>
+format-mounted = <label-mounted>
+format-mounted-prefix = 
+format-mounted-prefix-font = 2
+format-mounted-background = ${color.color5}
+format-mounted-padding = 2
+
+; available tags:
+;   <label-unmounted> (default)
+format-unmounted = <label-unmounted>
+format-unmounted-prefix = 
+format-unmounted-prefix-font = 2
+format-unmounted-background = ${color.color5}
+format-unmounted-padding = 2
+
+; available tokens:
+;   %mountpoint%
+;   %type%
+;   %fsname%
+;   %percentage_free%
+;   %percentage_used%
+;   %total%
+;   %free%
+;   %used%
+; default: %mountpoint% %percentage_free%
+label-mounted = " %free"
+
+; available tokens:
+;   %mountpoint%
+; default: %monutpoint% is not mounted
+label-unmounted = " %mountpoint%: not mounted"
+
+
+[module/memory]
+type = internal/memory
+
+; seconds to sleep between updates
+interval = 1
+
+; available tags:
+;   <label> (default)
+;   <bar-used>
+;   <bar-free>
+;   <ramp-used>
+;   <ramp-free>
+;   <bar-swap-used>
+;   <bar-swap-free>
+;   <ramp-swap-used>
+;   <ramp-swap-free>
+format = <label>
+format-prefix = 
+format-prefix-font = 2
+format-background = ${color.color5}
+format-padding = 2
+
+; available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+;   %percentage_swap_used%
+;   %percentage_swap_free%
+;   %mb_swap_total%
+;   %mb_swap_free%
+;   %mb_swap_used%
+;   %gb_swap_total%
+;   %gb_swap_free%
+;   %gb_swap_used%
+label = " %gb_used%"
+
+
+[module/wired-network]
+type = internal/network
+interface = enp0s31f6
+
+
+[module/wireless-network]
+type = internal/network
+interface = wlp0s20f3
+
+
+[module/vpn-network]
+type = internal/network
+interface = vpn0
+
+
+[module/network]
+type = internal/network
+interface = wlp0s20f3
+
+; seconds to sleep between updates
+interval = 1
+
+; accumulate values from all interfaces when
+; querying for up/down speed rate
+accumulate-stats = true
+
+; consider an UNKNOWN interface state as up
+; some devices have an unknown state, even when running
+unknown-as-up = true
+
+; available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = <label-connected>
+format-connected-prefix = 直
+format-connected-prefix-font = 2
+format-connected-background = ${color.color3}
+format-connected-padding = 2
+
+; available tags:
+;   <label-disconnected> (default)
+format-disconnected = <label-disconnected>
+format-disconnected-prefix = 睊
+format-disconnected-prefix-font = 2
+format-disconnected-background = ${color.color3}
+format-disconnected-padding = 2
+
+; available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; default: %ifname% %local_ip%
+label-connected = "%{A1:networkmanager_dmenu &:} %essid%%{A}"
+
+; available tokens:
+;   %ifname%    [wireless+wired]
+; default: (none)
+label-disconnected = "%{A1:networkmanager_dmenu &:} Offline%{A}"
+
+; only applies if <ramp-signal> is used
+ramp-signal-0 = 直
+ramp-signal-1 = 直
+ramp-signal-2 = 直
+
+
+[module/date]
+type = internal/date
+
+; seconds to sleep between updates
+interval = 1.0
+
+; see "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; note: if you want to use syntax tags here, you need to use %%{...}
+;;date = %Y-%m-%d%
+
+; optional time format
+time = %H:%M %p
+
+; if 'date-alt' or 'time-alt' is defined, clicking the module will toggle between the two
+;date-alt = %A, %d %B %Y
+time-alt = %a, %d %b %Y
+
+; available tags:
+;   <label> (default)
+format = <label>
+format-prefix = 
+format-prefix-font = 2
+format-background = ${color.color2}
+format-foreground = ${color.foreground}
+format-padding = 2
+
+; available tokens:
+;   %date%
+;   %time%
+; default: %date%
+label = %time%
+
+
+[module/i3]
+type = internal/i3
+
+; only show workspaces defined on the same output as the bar
+; useful for showing monitor-specific workspaces on different bars
+pin-workspaces = true
+
+; split workspace name on ':'
+strip-wsnumbers = true
+
+; sort workspaces by index instead of grouping by output
+index-sort = true
+
+; create click handler to focus workspace
+enable-click = true
+
+; create scroll handlers to cycle workspaces
+enable-scroll = true
+
+; wrap around when reaching the first/last workspace
+wrapping-scroll = false
+
+; set the scroll cycle direction
+reverse-scroll = true
+
+; use fuzzy matching on labels when assigning icons
+; example: code;♚ will apply the icon to all workspaces
+;          with 'code' in the label
+fuzzy-match = true
+
+; ws-icon-[0-9]+ = <label>;<icon>
+;ws-icon-default = 0
+
+; available tags:
+;   <label-state> (default) - gets replaced with <label-{focused,unfocused,visible,urgent}>
+;   <label-mode>  (default)
+format = <label-state> <label-mode>
+
+; available tokens:
+;   %mode% (default)
+label-mode = %mode%
+label-mode-background = ${color.color3}
+label-mode-padding = 2
+
+; available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; default: %icon%  %name%
+label-focused = %index%
+label-focused-foreground = ${color.foreground}
+label-focused-background = ${color.color3}
+label-focused-underline = ${color.foreground-alt}
+label-focused-padding = 2
+
+; available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; default: %icon%  %name%
+label-unfocused = %index%
+label-unfocused-background = ${color.background}
+label-unfocused-foreground = ${color.foreground-alt}
+label-unfocused-padding = 2
+
+; available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; default: %icon%  %name%
+label-visible = %index%
+label-visible-underline = ${color.foreground}
+label-visible-padding = 2
+
+; available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; default: %icon%  %name%
+label-urgent = %index%
+label-urgent-foreground = ${color.foreground}
+label-urgent-background = ${color.color1}
+label-urgent-padding = 2
+
+
+[module/title]
+type = internal/xwindow
+
+; available tags:
+;   <label> (default)
+format = <label>
+format-foreground = ${color.foreground-alt}
+format-prefix = >
+format-prefix-font = 2
+format-prefix-background = ${color.color3}
+format-prefix-foreground = ${color.background}
+format-prefix-padding = 1
+
+; available tokens:
+;   %title% (default)
+label = %title%
+label-maxlen = 30
+label-background = ${color.background}
+label-padding = 2
+
+; used instead of label when there is no window title
+label-empty = "desktop"
+label-empty-background = ${color.background}
+label-empty-foreground = ${color.foreground-alt}
+label-empty-padding = 2

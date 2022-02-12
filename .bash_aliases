@@ -5,7 +5,7 @@
 # ================ exports ============================================
 export VISUAL=${VISUAL:-vim}
 export EDITOR=${EDITOR:-vim}
-export PAGER=${PAGER:-less}
+export PAGER=${PAGER:-less -R}
 export SYSTEMD_PAGER=  # disable systemctl's auto-paging
 export AWS_PAGER=      # disable awscli auto-paging
 

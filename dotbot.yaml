@@ -13,11 +13,19 @@
     ~/bin/kubectl-eks: bin/kubectl/eks.sh
     ~/bin/kubectl-kdiff: bin/kubectl/kdiff.sh
     ~/bin/kubectl-prom: bin/kubectl/prom.sh
+    ~/bin/polybar-launch: bin/polybar/launch.sh
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
+    ~/.config/terminator/config: .config/terminator/config
+    ~/.config/i3/config: .config/i3/config
+    ~/.config/polybar/colors: .config/polybar/colors
+    ~/.config/polybar/config: .config/polybar/config
+    ~/.config/polybar/modules: .config/polybar/modules
+    ~/.config/polybar/user_modules: .config/polybar/user_modules
     ~/.dircolors: .dircolors
     ~/.dircolors.256color: .dircolors.256color
     ~/.ssh/config: .ssh/config
     ~/.ssh/config.d/main: .ssh/config.d/main
     ~/.ssh/config.d/aws: .ssh/config.d/aws
+    ~/.xmodmaprc: .xmodmaprc
     ~/.zshrc: .zshrc

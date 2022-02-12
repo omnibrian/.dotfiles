@@ -1,0 +1,31 @@
+[global_config]
+  focus = mouse
+  title_transmit_fg_color = "#c8ccd5"
+  title_transmit_bg_color = "#e06c75"
+  title_receive_fg_color = "#c8ccd5"
+  title_receive_bg_color = "#61afef"
+  title_inactive_fg_color = "#101114"
+  title_inactive_bg_color = "#abb1bf"
+  title_font = IBM Plex Mono 9
+[keybindings]
+[profiles]
+  [[default]]
+    background_color = "#101114"
+    background_darkness = 0.91
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = IBM Plex Mono Medium 10
+    foreground_color = "#c8ccd5"
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_infinite = True
+    palette = "#101114:#e06c75:#99c37a:#e5c07c:#61afef:#c877dd:#56b6c4:#abb1bf:#545863:#e06c75:#99c37a:#e5c07c:#61afef:#c877dd:#56b6c4:#c8ccd5"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]
