@@ -7,21 +7,37 @@ foreground-alt = #FFFFFF
 alpha          = #00000000
 
 ;; standard colors
+; black
 color0 = #101114
+; red
 color1 = #E06C75
+; green
 color2 = #99C37A
+; yellow
 color3 = #E5C07C
+; blue
 color4 = #61AFEF
+; purple
 color5 = #C877DD
+; teal
 color6 = #56B6C4
+; light gray
 color7 = #ABB1BF
 
 ;; high intensity colors
+; dark gray
 color8  = #545863
+; red
 color9  = #E06C75
+; green
 color10 = #99C37A
+; yellow
 color11 = #E5C07C
+; blue
 color12 = #61AFEF
+; purple
 color13 = #C877DD
+; teal
 color14 = #56B6C4
+; white
 color15 = #C8CCD5

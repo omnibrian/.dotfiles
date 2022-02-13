@@ -175,7 +175,7 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
 					   /bin
 
 # provide .. as a completion
-zstyle ':completion:*' special-dirs ..
+#zstyle ':completion:*' special-dirs ..
 
 # treat multiple slashes as a single slash
 zstyle ':completion:*' squeeze-slashes true
