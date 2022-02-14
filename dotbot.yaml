@@ -10,10 +10,10 @@
     ~/bin/aws-instances: bin/aws/instances.sh
     ~/bin/aws-proxy: bin/aws/proxy.sh
     ~/bin/aws-users: bin/aws/users.py
+    ~/bin/i3lock-launch: bin/i3lock/launch.sh
     ~/bin/kubectl-eks: bin/kubectl/eks.sh
     ~/bin/kubectl-kdiff: bin/kubectl/kdiff.sh
     ~/bin/kubectl-prom: bin/kubectl/prom.sh
-    ~/bin/i3lock-launch: bin/i3lock/launch.sh
     ~/bin/polybar-launch: bin/polybar/launch.sh
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
@@ -24,6 +24,8 @@
     ~/.config/polybar/config: .config/polybar/config
     ~/.config/polybar/modules: .config/polybar/modules
     ~/.config/polybar/user_modules: .config/polybar/user_modules
+    ~/.config/rofi/config.rasi: .config/rofi/config.rasi
+    ~/.config/rofi/launcher.rasi: .config/rofi/launcher.rasi
     ~/.config/terminator/config: .config/terminator/config
     ~/.dircolors: .dircolors
     ~/.dircolors.256color: .dircolors.256color

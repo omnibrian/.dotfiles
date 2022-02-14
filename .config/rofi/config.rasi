@@ -1,0 +1,183 @@
+@theme "sidebar"
+
+configuration {
+  font:                   "IBM Plex Mono 10";
+  show-icons:             false;
+  sidebar-mode:           true;
+  scroll-method:          0;
+  window-format:          "[{w}] {c} ··· {t}";
+  fixed-num-lines:        true;
+  click-to-exit:          true;
+  combi-hide-mode-prefix: false;
+  display-window:         "";
+  display-run:            "";
+  display-drun:           "";
+  display-combi:          "";
+  disable-history:        false;
+}
+
+* {
+  background-color: #101114FF;
+  background:       #101114FF;
+  foreground:       #C8CCD5FF;
+  accent:           #E5C07CFF;
+  red:              #E06C75FF;
+  green:            #99C37AFF;
+  alpha:            #00000000;
+}
+
+window {
+  border: 0px;
+  border-color: @accent;
+  border-radius: 6px;
+  padding: 15;
+  width: 20%;
+}
+
+prompt {
+  spacing: 0;
+  border: 0;
+  text-color: @foreground;
+  font: "FontAwesome 12";
+}
+
+textbox-prompt-colon {
+  expand: false;
+  str: " ";
+  margin: 0px 4px 0px 0px;
+  text-color: inherit;
+  background-color: @background;
+}
+
+entry {
+  spacing: 0;
+  text-color: @foreground;
+}
+
+case-indicator {
+  spacing: 0;
+  text-color: @foreground;
+}
+
+inputbar {
+  children: [ prompt, textbox-prompt-colon, entry, case-indicator ];
+  spacing: 0px;
+  text-color: @foreground;
+  padding: 1px;
+  border: 0;
+  background-color: @background;
+}
+
+mainbox {
+  border: 0px;
+  border-color: @accent;
+  background-color: @background;
+  padding: 6;
+  spacing: 6px;
+}
+
+listview {
+  lines: 6;
+  columns: 1;
+  fixed-height: 0;
+  border: 0px;
+  border-color: @accent;
+  spacing: 4px;
+  scrollbar: false;
+  padding: 5px 5px 0px 5px;
+}
+
+element {
+  border: 0px;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+element-icon, element-text {
+  background-color: @alpha;
+  text-color: inherit;
+}
+
+element normal normal {
+  background-color: @background;
+  text-color: @foreground;
+}
+
+element normal urgent {
+  background-color: @background;
+  text-color: @red;
+}
+
+element normal active {
+  background-color: @green;
+  text-color: @background;
+}
+
+element selected normal {
+  background-color: @accent;
+  text-color: @background;
+}
+
+element selected urgent {
+  background-color: @accent;
+  text-color: @background;
+  border: 2px;
+  border-color: @red;
+}
+
+element selected active {
+  background-color: @accent;
+  text-color: @background;
+  border: 2px;
+  border-color: @green;
+}
+
+element alternate normal {
+  background-color: @background;
+  text-color: @foreground;
+}
+
+element alternate urgent {
+  background-color: @background;
+  text-color: @red;
+}
+
+element alternate active {
+  background-color: @background;
+  text-color: @green;
+}
+
+sidebar {
+  border: 0px;
+  border-color: @accent;
+  border-radius: 0px;
+}
+
+mode-switcher {
+  border: 0;
+  padding: 0;
+  background-color: @accent;
+}
+
+button {
+  font: "FontAwesome 12";
+  text-color: @accent;
+}
+
+button selected {
+  background-color: @accent;
+  text-color: @background;
+  border: 0px;
+  border-radius: 4px;
+  border-color: @background;
+}
+
+message {
+  border: 0px;
+  border-color: @accent;
+  padding: 1px;
+}
+
+textbox {
+  text-color: @foreground;
+}

@@ -29,7 +29,7 @@ bindsym $mod+Shift+q kill
 
 # start rofi
 bindsym $mod+slash exec "rofi -no-lazy-grab -show combi -modi combi#drun#run#window"
-bindsym $mod+d     exec "rofi -no-lazy-grab -show drun  -modi drun#run#window"
+bindsym $mod+d     exec "rofi -no-lazy-grab -show drun -modi drun -config ~/.config/rofi/launcher.rasi"
 # ================ base ===============================================
 
 

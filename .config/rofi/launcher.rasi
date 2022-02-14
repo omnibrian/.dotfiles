@@ -1,0 +1,127 @@
+configuration {
+  font:                  "IBM Plex Mono 10";
+  show-icons:            true;
+  display-drun:          "";
+  drun-display-format:   "{name}";
+  display-run:           "";
+  run-display-format:    "{name}";
+  display-window:        "";
+  window-display-format: "{name}";
+  disable-history:       false;
+  sidebar-mode:          false;
+}
+
+* {
+  alpha:          #00000000;
+  background:     #101114FF;
+  background-bar: #F2F2F215;
+  foreground:     #F2F2F2EE;
+  accent:         #3DAEE966;
+}
+
+window {
+  // TODO switch to "real" when using compositor
+  transparency:     "screenshot";
+  background-color: @background;
+  text-color:       @foreground;
+  border:           0px;
+  border-color:     @alpha;
+  border-radius:    12px;
+  width:            40%;
+  location:         center;
+  x-offset:         0;
+  y-offset:         0;
+}
+
+prompt {
+  padding:          0.30% 1% 0% -0.5%;
+  background-color: @alpha;
+  text-color:       @foreground;
+  font:             "FontAwesome 12";
+}
+
+entry {
+  background-color:  @alpha;
+  text-color:        @foreground;
+  placeholder-color: @foreground;
+  expand:            true;
+  horizontal-align:  0;
+  placeholder:       "Search";
+  padding:           0.10% 0% 0% 0%;
+  blink:             true;
+}
+
+inputbar {
+  children:         [ prompt, entry ];
+  background-color: @background-bar;
+  text-color:       @foreground;
+  expand:           false;
+  border:           0px;
+  border-radius:    12px;
+  border-color:     @accent;
+  margin:           0% 0% 0% 0%;
+  padding:          1.5%;
+}
+
+listview {
+  background-color: @alpha;
+  border:           0px;
+  columns:          5;
+  lines:            3;
+  spacing:          0%;
+  cycle:            false;
+  dynamic:          true;
+  layout:           vertical;
+}
+
+scrollbar {
+  handle-color: @background-bar;
+}
+
+mainbox {
+  background-color: @alpha;
+  border:           0% 0% 0% 0%;
+  border-radius:    0% 0% 0% 0%;
+  border-color:     @accent;
+  children:         [ inputbar, listview ];
+  spacing:          2%;
+  padding:          2% 1% 2% 1%;
+}
+
+element {
+  background-color: @alpha;
+  text-color:       @foreground;
+  orientation:      vertical;
+  border-radius:    0%;
+  padding:          2% 0% 2% 0%;
+}
+
+element-icon {
+  background-color: @alpha;
+  text-color:       inherit;
+  horizontal-align: 0.5;
+  vertical-align:   0.5;
+  size:             64px;
+  border:           0px;
+}
+
+element-text {
+  background-color: @alpha;
+  text-color:       inherit;
+  expand:           true;
+  horizontal-align: 0.5;
+  vertial-align:    0.5;
+  margin:           0.5% 0.5% -0.5% 0.5%;
+}
+
+element selected {
+  background-color: @background-bar;
+  text-color:       @foreground;
+  border:           0% 0% 0% 0%;
+  border-radius:    12px;
+  border-color:     @accent;
+}
+
+element alternate normal {
+  background-color: @alpha;
+}
