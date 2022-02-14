@@ -31,8 +31,8 @@ offset = 24x68
 # scale, auto-detected if value is 0
 scale = 0
 
-# maximum number of notification (0 means no limit)
-notification_limit = 6
+# maximum number of notifications (0 means no limit)
+notification_limit = 10
 
 # show how many messages are currently hidden (by notification_limit)
 indicate_hidden = yes

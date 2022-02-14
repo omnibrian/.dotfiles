@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+#
+# just exporting values to get used by i3lock invokation script
+
+# don't pass empty password to PAM
+IGNORE_EMPTY_PASSWORD=true
+
+# passthrough for keys
+PASS_MEDIA_KEYS=true
+PASS_SCREEN_KEYS=true
+PASS_POWER_KEYS=true
+
+# background image
+IMAGE=~/Pictures/backgrounds/rhel_hello_world.jpg
+FILL=true
+
+# font
+TIME_FONT='Red Hat Display'
+DATE_FONT='Red Hat Display'
+LAYOUT_FONT='Red Hat Display'
+VERIF_FONT='Red Hat Display'
+WRONG_FONT='Red Hat Display'
+GREETER_FONT='Red Hat Display'
+
+# colors as rrggbb
+ALPHA='#00000000'
+BLACK='#101114'
+WHITE='#c8ccd5'
+RED='#ee0000'
+BLUE='#61afef'
+
+# verifying password
+RINGVER_COLOR="${BLUE}ff"
+INSIDEVER_COLOR="${BLUE}66"
+
+# wrong password
+RINGWRONG_COLOR="${RED}ff"
+INSIDEWRONG_COLOR="${RED}66"
+
+# password input
+RING_COLOR="${RED}88"
+KEYHL_COLOR="${RED}bb"
+SEPARATOR_COLOR="${BLACK}ff"
+INSIDE_COLOR="${ALPHA}"
+
+# text color
+VERIF_COLOR="${WHITE}ff"
+WRONG_COLOR="${WHITE}ff"
+MODIF_COLOR="${WHITE}ff"
+LAYOUT_COLOR="${WHITE}ff"
+GREETER_COLOR="${WHITE}ff"
+
+# time display
+CLOCK=true
+TIME_STR='%H:%M'
+TIME_COLOR="${WHITE}ff"
+DATE_STR='%a, %b %d'
+DATE_COLOR="${WHITE}ff"

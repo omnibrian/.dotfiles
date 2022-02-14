@@ -13,12 +13,13 @@
     ~/bin/kubectl-eks: bin/kubectl/eks.sh
     ~/bin/kubectl-kdiff: bin/kubectl/kdiff.sh
     ~/bin/kubectl-prom: bin/kubectl/prom.sh
+    ~/bin/i3lock-launch: bin/i3lock/launch.sh
     ~/bin/polybar-launch: bin/polybar/launch.sh
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
     ~/.config/dunst/dunstrc: .config/dunst/dunstrc
     ~/.config/i3/config: .config/i3/config
-    ~/.config/i3/i3lock.sh: .config/i3/i3lock.sh
+    ~/.config/i3lock/config: .config/i3lock/config
     ~/.config/polybar/colors: .config/polybar/colors
     ~/.config/polybar/config: .config/polybar/config
     ~/.config/polybar/modules: .config/polybar/modules

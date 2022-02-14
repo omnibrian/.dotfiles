@@ -174,7 +174,7 @@ bindsym $mod+r mode $resize
 
 # ================ system =============================================
 # lock screen
-set $lock_screen ~/.config/i3/i3lock.sh
+set $lock_screen i3lock-launch
 
 # auto-lock on timeout & sleep/suspend
 exec --no-startup-id xset s 600 120
@@ -187,7 +187,7 @@ bindsym $mod+q exec --no-startup-id $lock_screen
 
 # ================ startup ============================================
 # background
-exec_always --no-startup-id feh --bg-scale ~/Pictures/backgrounds/i3wall.png
+exec_always --no-startup-id feh --bg-scale ~/Pictures/backgrounds/i3wall-yellow.png
 
 # status bar
 exec_always --no-startup-id ~/bin/polybar-launch
