@@ -86,7 +86,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+t layout toggle split
 
 # toggle floating
-bindsym $mod+Shift+space floating toggle; [floating] border normal 0; [tiling] border pixel 2
+bindsym $mod+Shift+space floating toggle; [floating] border normal 2; [tiling] border pixel 2
 
 # switch focus between tiling & floating windows
 bindsym $mod+space focus mode_toggle
@@ -210,9 +210,12 @@ exec --no-startup-id gnome-flashback
 
 
 # ================ decoration =========================================
+for_window [class=".*"] title_format " > %title"
+
 # borders
 for_window [tiling] border pixel 2
-for_window [class=".*"] title_format " > %title"
+for_window [floating] border normal 2
+for_window [class="Guake"] border normal 0  # hide border on guake dropdown
 
 # colors
 set $background #101114

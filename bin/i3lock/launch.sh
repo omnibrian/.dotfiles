@@ -30,7 +30,6 @@ die() {
 }
 
 parse_params() {
-
   NOFORK_OVERRIDE=false
 
   while : ; do
