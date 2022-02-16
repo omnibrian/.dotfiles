@@ -2,11 +2,12 @@
 #
 # Entrypoint for WM binding to start polybar
 
-# cleanup currently running polybars
-killall -q polybar
-
-# wait until processes are shut down
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-
-# launch new polybar
-polybar --quiet --reload main
+if [[ -z "$(pgrep -u $UID -x polybar)" ]] ; then
+  # start polybar for all known monitor connections
+  for monitor in $(xrandr -q | grep connected | cut -d' ' -f1) ; do
+    MONITOR=$monitor polybar --quiet --reload main &
+  done
+else
+  # send restart command to existing polybar instances
+  polybar-msg cmd restart
+fi

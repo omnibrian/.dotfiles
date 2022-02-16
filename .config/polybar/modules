@@ -577,7 +577,9 @@ label-unfocused-padding = 2
 ;   %output%
 ; default: %icon%  %name%
 label-visible = %index%
-label-visible-underline = ${color.foreground}
+label-visible-background = ${color.background}
+label-visible-foreground = ${color.foreground-alt}
+label-visible-underline = ${color.foreground-alt}
 label-visible-padding = 2
 
 ; available tokens:

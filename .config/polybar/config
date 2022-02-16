@@ -17,7 +17,7 @@ include-file = ~/.config/polybar/user_modules
 ; use either of the following to list available outputs:
 ; $ polybar -m | cut -d: -f1
 ; $ xrandr -q | grep ' connected' | cut -d' ' -f1
-monitor =
+monitor = ${env:MONITOR:eDP-1}
 
 ; use specified monitor as fallback if main one is not found
 monitor-fallback =
