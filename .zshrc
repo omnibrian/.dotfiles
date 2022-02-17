@@ -210,8 +210,8 @@ autoload -Uz bashcompinit
 bashcompinit
 
 # awscli autocompletion
-if type aws_completer &>/dev/null ; then
-	complete -C aws_completer
+if command -v aws_completer &>/dev/null ; then
+	complete -C aws_completer aws
 fi
 # ================ completion =========================================
 

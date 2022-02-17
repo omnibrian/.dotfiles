@@ -1,6 +1,8 @@
-#!/usr/bin/env bash -euo pipefail
+#!/usr/bin/env bash
 #
 # List EC2 instance names and instance IDs.
+
+set -euo pipefail
 
 usage() {
   cat <<EOF

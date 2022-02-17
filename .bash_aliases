@@ -41,9 +41,9 @@ fi
 
 # ================ aliases ============================================
 alias ls='ls --color=auto'
-alias ll='ls --color=auto -l'
-alias la='ls --color=auto -la'
-alias l='ls --color=auto -lah'
+alias ll='ls -lB'
+alias la='ls -la'
+alias l='ls -lah'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
