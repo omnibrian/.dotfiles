@@ -35,9 +35,6 @@
 
 
 ;; ================ colors =============================================
-(set-foreground-color "#C8CCD5")
-(set-background-color "#101114")
-
 (load-theme 'brian t)
 ;; ================ colors =============================================
 
@@ -73,17 +70,3 @@
 ;; ================ whitespace =========================================
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)
 ;; ================ whitespace =========================================
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-    (quote
-     ("36c4dcb1d4dd810fcae53b3318287ab19c2d40853dcc9abe973bef0931c9c1be" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
