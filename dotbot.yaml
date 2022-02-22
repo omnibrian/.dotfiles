@@ -20,6 +20,7 @@
     ~/.config/dunst/dunstrc: .config/dunst/dunstrc
     ~/.config/i3/config: .config/i3/config
     ~/.config/i3lock/config: .config/i3lock/config
+    ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
     ~/.config/polybar/colors: .config/polybar/colors
     ~/.config/polybar/config: .config/polybar/config
     ~/.config/polybar/modules: .config/polybar/modules
