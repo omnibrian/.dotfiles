@@ -145,7 +145,7 @@ ramp-font = 2
 type = internal/battery
 
 ; useful if batter never reaches 100%
-full-at = 99
+full-at = 98
 
 ; use the following command to list batteries & adapters:
 ; $ ls -1 /sys/class/power_supply/

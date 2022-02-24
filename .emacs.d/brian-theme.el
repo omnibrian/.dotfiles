@@ -11,10 +11,10 @@
       (teal        "#56B6C4")
       (light-gray  "#ABB1BF")
       (dark-gray   "#545863")
-      (dark-yellow "#C5A05C"))
+      (dark-yellow "#85601C"))
   (custom-theme-set-faces
    'brian
-   `(default                             ((t (:background ,black :foreground ,white))))
+   `(default                             ((t (:background ,black :foreground ,white :height 90))))
    `(cursor                              ((t (:background ,white :foreground ,black))))
    `(escape-glyph                        ((t (:foreground ,teal))))
    `(homoglyph                           ((t (:foreground ,teal))))

@@ -3,9 +3,9 @@ DOTBOT_DIR = .dotbot
 DOTBOT_BIN = bin/dotbot
 GITCONFIG_FILE = .gitconfig
 
-submodule:
+submodules:
+	git submodule update --init --recursive
 	git -C $(DOTBOT_DIR) submodule sync --quiet --recursive
-	git submodule update --init --recursive $(DOTBOT_DIR)
 
 dotbot:
 	$(DOTBOT_DIR)/$(DOTBOT_BIN) -d $(shell pwd) -c $(CONFIG)

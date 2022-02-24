@@ -21,19 +21,13 @@
     ~/.config/i3/config: .config/i3/config
     ~/.config/i3lock/config: .config/i3lock/config
     ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
-    ~/.config/polybar/colors: .config/polybar/colors
-    ~/.config/polybar/config: .config/polybar/config
-    ~/.config/polybar/modules: .config/polybar/modules
-    ~/.config/polybar/user_modules: .config/polybar/user_modules
-    ~/.config/rofi/config.rasi: .config/rofi/config.rasi
-    ~/.config/rofi/launcher.rasi: .config/rofi/launcher.rasi
+    ~/.config/polybar: .config/polybar
+    ~/.config/rofi: .config/rofi
     ~/.config/terminator/config: .config/terminator/config
-    ~/.emacs.d/brian-theme.el: .emacs.d/brian-theme.el
-    ~/.emacs.d/init.el: .emacs.d/init.el
+    ~/.emacs.d: .emacs.d
     ~/.dircolors: .dircolors
     ~/.dircolors.256color: .dircolors.256color
     ~/.ssh/config: .ssh/config
-    ~/.ssh/config.d/main: .ssh/config.d/main
-    ~/.ssh/config.d/aws: .ssh/config.d/aws
+    ~/.ssh/config.d: .ssh/config.d
     ~/.xmodmaprc: .xmodmaprc
     ~/.zshrc: .zshrc

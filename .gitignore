@@ -5,3 +5,13 @@
 
 # macos
 .DS_Store
+
+# emacs
+.emacs.d/auto-save-list/
+.emacs.d/tutorial/
+.emacs.d/transient/
+.emacs.d/straight/
+.emacs.d/.lsp-session-v1
+.emacs.d/projectile-bookmarks.eld
+.emacs.d/recentf
+!.emacs.d/straight/repos/straight.el
