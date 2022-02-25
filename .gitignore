@@ -7,6 +7,7 @@
 .DS_Store
 
 # emacs
+.emacs.d/*.cache
 .emacs.d/auto-save-list/
 .emacs.d/tutorial/
 .emacs.d/transient/
