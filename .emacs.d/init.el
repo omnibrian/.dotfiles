@@ -1,18 +1,22 @@
-;; main emacs init script
+;;; init.el --- main Emacs init script -*- lexical-binding: t -*-
 
+;;; Commentary:
+;;; Entrypoint for Emacs configuration.
+
+;;; Code:
 ;; ================ colors =============================================
 (load-theme 'brian t)
 
 ;; highlight current line
 (global-hl-line-mode)
-(set-face-background hl-line-face "#272931")  ; dark-dark-gray
 ;; ================ colors =============================================
 
 
-;; ================ line-numbers =======================================
+;; ================ decorations ========================================
 (global-linum-mode 1)
 
 ;; highlight current line with different color
+;; TODO include this in theme
 (defface linum-current-line-face
   `((t :inherit linum
        :foreground "goldenrod"
@@ -32,7 +36,7 @@
                                     (point-max))))))))
 
 (defun linum-relative (line-number)
-  "Set relative line numbers."
+  "Helper for relative line numbers.  LINE-NUMBER is current line number."
   (let* ((diff (abs (- line-number linum-last-pos)))
 	       (line-number (if (= diff 0) line-number diff))
 	       (face (if (= diff 0) 'linum-current-line-face 'linum)))
@@ -40,17 +44,15 @@
                 'face face)))
 
 (setq linum-format 'linum-relative)
-;; ================ line-numbers =======================================
 
-
-;; ================ decorations ========================================
+;; window decorations
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
 ;; ================ decorations ========================================
 
 
-;; ================ tabs ===============================================
+;; ================ whitespace =========================================
 (setq-default indent-tabs-mode nil)
 (setq indent-line-function 'insert-tab)
 
@@ -68,11 +70,8 @@
 (add-hook 'python-mode-hook
           '(lambda ()
              (local-set-key (kbd "RET") 'newline-and-indent)))
-;; ================ tabs ===============================================
 
-
-;; ================ whitespace =========================================
-(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+(add-hook 'write-file-functions 'delete-trailing-whitespace)
 ;; ================ whitespace =========================================
 
 
@@ -97,24 +96,25 @@
 (use-package projectile
   :straight t
   :defer 0.1
+  :bind-keymap
+  (("C-c p" . projectile-command-map))
+  :init
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-project-search-path '(("~/git/" . 2) ("~/.dotfiles" . 0)))
   :config
-  (projectile-mode +1)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-
-(setq projectile-completion-system 'ivy)
-(setq projectile-project-search-path '(("~/git/" . 2) ("~/.dotfiles" . 0)))
+  (projectile-mode +1))
 
 ;; ivy / counsel -- github.com/abo-abo/swiper
 (use-package ivy
   :straight t
   :defer 0.1
+  :init
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-display-style 'fancy)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq enable-recursive-minibuffers t)
   :config
   (ivy-mode 1))
-
-(setq ivy-use-virtual-buffers t)
-(setq ivy-display-style 'fancy)
-(setq ivy-count-format "(%d/%d) ")
-(setq enable-recursive-minibuffers t)
 
 (use-package counsel
   :straight t
@@ -140,13 +140,14 @@
   :straight t
   :after projectile
   :defer 0.2
+  :bind
+  (("C-x /"   . neotree-project-toggle)
+   ("C-x C-/" . neotree-project-toggle))
+  :init
+  (setq neo-smart-open t)
+  (setq neo-show-hidden-files t)
   :config
-  (global-set-key (kbd "C-x /")   'neotree-project-toggle)
-  (global-set-key (kbd "C-x C-/") 'neotree-project-toggle)
   (setq projectile-switch-project-action 'neotree-projectile-action))
-
-(setq neo-smart-open t)
-(setq neo-show-hidden-files t)
 
 ;; which-key -- github.com/justbur/emacs-which-key
 (use-package which-key
@@ -159,58 +160,59 @@
 (use-package company
   :straight t
   :defer 0.2
-  :config
-  (add-hook 'prog-mode-hook 'company-mode)
-  (add-hook 'prog-mode-hook 'company-tng-mode))
-
-(setq company-tooltip-align-annotations t)
-(setq company-minimum-prefix-length 1)
+  :hook
+  ((prog-mode . company-mode)
+   (prog-mode . company-tng-mode))
+  :init
+  (setq company-tooltip-align-annotations t)
+  (setq company-minimum-prefix-length 1))
 
 ;; magit -- github.com/magit/magit
 (use-package magit
   :straight t
   :defer 0.2
-  :config
-  (global-set-key (kbd "C-c g") 'magit-status))
+  :bind
+  (("C-c g" . magit-status)
+   ("C-x g" . magit-status)))
 
 ;; language server protocol -- github.com/emacs-lsp/lsp-mode
 (use-package lsp-mode
   :straight t
   :defer 0.2
   :commands lsp
+  :hook
+  ((lsp-mode . lsp-enable-which-key-integration)
+   (python-mode . lsp)
+   (yaml-mode . lsp))
   :init
   (setq lsp-keymap-prefix "C-c l")
-  :hook
-  (lsp-mode . lsp-enable-which-key-integration)
-  (python-mode . lsp)
-  (yaml-mode . lsp))
-
-(setq lsp-enable-snippet nil)
+  (setq lsp-enable-snippet nil))
 
 ;; language server hovers / actions -- github.com/emacs-lsp/lsp-ui
 (use-package lsp-ui
   :straight t
   :defer 0.2
-  :commands lsp-ui-mode)
-
-(setq lsp-ui-peek-always-show t)
-(setq lsp-ui-sideline-show-hover t)
-(setq lsp-ui-doc-enable nil)
+  :commands lsp-ui-mode
+  :init
+  (setq lsp-ui-peek-always-show t)
+  (setq lsp-ui-sideline-show-hover t)
+  (setq lsp-ui-doc-enable nil))
 
 ;; language server symbols in ivy -- github.com/emacs-lsp/lsp-ivy
 (use-package lsp-ivy
   :straight t
   :defer 0.2
   :commands lsp-ivy-workspace-symbol
-  :config
-  (define-key lsp-mode-map [remap xref-find-apropos] 'lsp-ivy-workspace-symbol))
+  :bind
+  (:map lsp-mode-map
+        ([remap xref-find-apropos] . lsp-ivy-workspace-symbol)))
 
 ;; flycheck -- github.com/flycheck/flycheck
 (use-package flycheck
   :straight t
   :defer 0.2
-  :config
-  (add-hook 'prog-mode-hook 'flycheck-mode))
+  :hook
+  ((prog-mode . flycheck-mode)))
 
 
 ;;;; user modes
@@ -229,26 +231,35 @@
 (use-package auto-virtualenv
   :straight t
   :defer 0.2
-  :config
-  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
+  :hook
+  ((python-mode . auto-virtualenv-set-virtualenv)))
 
 ;; yaml-mode -- github.com/yoshiki/yaml-mode
 ;; requires npm install -g yaml-language-server
 (use-package yaml-mode
   :straight t
   :defer 0.2
+  :init
+  (setq lsp-yaml-format-enable t)
+  (setq lsp-yaml-single-quote t)
   :config
   (with-eval-after-load "lsp-mode"
     (add-to-list 'lsp-enabled-clients 'yamlls)))
-
-(setq lsp-yaml-format-enable t)
-(setq lsp-yaml-single-quote t)
 
 ;; TODO: go-mode -- github.com/dominikh/go-mode.el
 ;; ================ packages ===========================================
 
 
 ;; ================ misc ===============================================
+;; don't need to here any bell sounds, so flash mode line instead
+;; https://www.emacswiki.org/emacs/AlarmBell
+(defun flash-mode-line ()
+  "Invert mode line face for 0.1 seconds."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+(setq visible-bell nil
+      ring-bell-function 'flash-mode-line)
+
 ;; always follow symlinks to version controlled files
 (setq vc-follow-symlinks t)
 
@@ -264,9 +275,13 @@
 
 ;; update PATH to match what's in shell rcfiles
 (defun set-exec-path-from-shell ()
-  "Run shell to steal $PATH from it and set exec-path accordingly."
+  "Run shell to steal $PATH from it and set 'exec-path' accordingly."
   (interactive)
-  (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -c 'echo \$PATH'"))))
+  (let ((path-from-shell
+         (replace-regexp-in-string
+          "[ \t\n]*$"
+          ""
+          (shell-command-to-string "$SHELL --login -c 'echo \$PATH'"))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
@@ -275,3 +290,7 @@
 (setenv "PATH" (concat (getenv "HOME") "/.local/bin" ":" (getenv "PATH")))
 (add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
 ;; ================ misc ===============================================
+
+
+(provide 'init)
+;;; init.el ends here

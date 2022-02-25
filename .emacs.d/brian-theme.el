@@ -1,17 +1,24 @@
+;;; brian-theme.el --- Custom Emacs theme
+
+;;; Commentary:
+;;; Brian's custom theme for Emacs
+
+;;; Code:
 (deftheme brian
   "Brian's custom theme")
 
-(let ((black       "#101114")
-      (white       "#C8CCD5")
-      (red         "#E06C75")
-      (green       "#99C37A")
-      (yellow      "#E5C07C")
-      (blue        "#61AFEF")
-      (purple      "#C877DD")
-      (teal        "#56B6C4")
-      (light-gray  "#ABB1BF")
-      (dark-gray   "#545863")
-      (dark-yellow "#85601C"))
+(let ((black         "#101114")
+      (white         "#C8CCD5")
+      (red           "#E06C75")
+      (green         "#99C37A")
+      (yellow        "#E5C07C")
+      (blue          "#61AFEF")
+      (purple        "#C877DD")
+      (teal          "#56B6C4")
+      (light-gray    "#ABB1BF")
+      (dark-gray     "#545863")
+      (dark-yellow   "#85601C")
+      (hl-background "#272931"))
   (custom-theme-set-faces
    'brian
    `(default                             ((t (:background ,black :foreground ,white :height 90))))
@@ -55,6 +62,10 @@
    `(lazy-highlight                      ((t (:background ,teal :foreground ,black))))
    `(match                               ((t (:background ,blue :foreground ,black))))
    `(next-error                          ((t (:inherit (region)))))
-   `(query-replace                       ((t (:inherit (isearch)))))))
+   `(query-replace                       ((t (:inherit (isearch)))))
+   `(hl-line                             ((t (:background ,hl-background))))))
 
 (provide-theme 'brian)
+
+(provide 'brian-theme)
+;;; brian-theme.el ends here
