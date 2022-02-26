@@ -285,8 +285,6 @@
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
-;;(set-exec-path-from-shell)
-
 (setenv "PATH" (concat (getenv "HOME") "/.local/bin" ":" (getenv "PATH")))
 (add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
 ;; ================ misc ===============================================

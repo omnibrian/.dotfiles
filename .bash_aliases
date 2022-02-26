@@ -2,6 +2,7 @@
 #
 # Note: this file is meant to be sourced in bash and zsh
 
+
 # ================ exports ============================================
 export VISUAL=${VISUAL:-vim}
 export EDITOR=${EDITOR:-vim}
