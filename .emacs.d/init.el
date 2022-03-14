@@ -102,9 +102,15 @@
   (setq projectile-completion-system 'ivy)
   (setq projectile-project-search-path '(("~/git/" . 2) ("~/.dotfiles" . 0)))
   :config
-  (projectile-mode +1))
+  (projectile-mode +1)
+  (with-eval-after-load "neotree"
+    (with-eval-after-load "auto-virtualenv"
+      (setq projectile-switch-project-action
+            '(lambda ()
+               (neotree-projectile-action)
+               (auto-virtualenv-set-virtualenv))))))
 
-;; ivy / counsel -- github.com/abo-abo/swiper
+;; ivy -- github.com/abo-abo/swiper
 (use-package ivy
   :straight t
   :defer 0.1
@@ -116,6 +122,7 @@
   :config
   (ivy-mode 1))
 
+;; counsel -- github.com/abo-abo/swiper
 (use-package counsel
   :straight t
   :after ivy
@@ -145,9 +152,7 @@
    ("C-x C-/" . neotree-project-toggle))
   :init
   (setq neo-smart-open t)
-  (setq neo-show-hidden-files t)
-  :config
-  (setq projectile-switch-project-action 'neotree-projectile-action))
+  (setq neo-show-hidden-files t))
 
 ;; which-key -- github.com/justbur/emacs-which-key
 (use-package which-key
@@ -186,7 +191,14 @@
    (yaml-mode . lsp))
   :init
   (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-enable-snippet nil))
+  (setq lsp-enable-snippet nil)
+  :config
+  ;; python language server -- github.com/python-lsp/python-lsp-server
+  ;; requires: pip install python-lsp-server[all] pylint
+  (add-to-list 'lsp-disabled-clients 'pyls)
+  (add-to-list 'lsp-enabled-clients 'pylsp)
+  (setq lsp-pylsp-plugins-pylint-enabled t)
+  (setq lsp-pylsp-plugins-pydocstyle-enabled nil))
 
 ;; language server hovers / actions -- github.com/emacs-lsp/lsp-ui
 (use-package lsp-ui
@@ -217,22 +229,21 @@
 
 ;;;; user modes
 
-;; python language server -- github.com/fredcamps/lsp-jedi
-;; requires pip install jedi-language-server
-(use-package lsp-jedi
+;; auto-virtualenv -- github.com/marcwebbie/auto-virtualenv
+(use-package auto-virtualenv
+  ;;  :straight (auto-virtualenv :type git :host github :repo "marcwebbie/auto-virtualenv")
+  :straight t
+  :defer 0.2)
+;;  :hook
+;;  ((python-mode . auto-virtualenv-set-virtualenv))
+
+;; pyvenv -- github.com/jorgenschaefer/pyvenv
+(use-package pyvenv
   :straight t
   :defer 0.2
   :config
-  (with-eval-after-load "lsp-mode"
-    (add-to-list 'lsp-disabled-clients 'pyls)
-    (add-to-list 'lsp-enabled-clients 'jedi)))
-
-;; auto-virtualenv -- github.com/marcwebbie/auto-virtualenv
-(use-package auto-virtualenv
-  :straight t
-  :defer 0.2
-  :hook
-  ((python-mode . auto-virtualenv-set-virtualenv)))
+  (pyvenv-mode t)
+  (setq pyvenv-mode-line-indicator '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] "))))
 
 ;; yaml-mode -- github.com/yoshiki/yaml-mode
 ;; requires npm install -g yaml-language-server

@@ -29,3 +29,5 @@
 	good = bisect good
 	bad = bisect bad
 	oops = commit --amend --no-edit
+[core]
+	excludesFile = ~/.gitignore

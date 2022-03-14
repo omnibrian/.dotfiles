@@ -24,9 +24,10 @@
     ~/.config/polybar: .config/polybar
     ~/.config/rofi: .config/rofi
     ~/.config/terminator/config: .config/terminator/config
-    ~/.emacs.d: .emacs.d
     ~/.dircolors: .dircolors
     ~/.dircolors.256color: .dircolors.256color
+    ~/.emacs.d: .emacs.d
+    ~/.gitignore: .gitignore
     ~/.ssh/config: .ssh/config
     ~/.ssh/config.d: .ssh/config.d
     ~/.xmodmaprc: .xmodmaprc

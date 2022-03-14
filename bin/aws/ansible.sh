@@ -1,6 +1,8 @@
-#!/usr/bin/env bash -euo pipefail
+#!/usr/bin/env bash
 #
 # Execute ansible playbook from S3 against a target instance.
+
+set -euo pipefail
 
 usage() {
   cat <<EOF

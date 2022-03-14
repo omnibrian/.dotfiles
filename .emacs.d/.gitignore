@@ -1,0 +1,10 @@
+*.cache
+auto-save-list/
+elpa/
+tutorial/
+transient/
+straight/
+.lsp-session-v1
+projectile-bookmarks.eld
+recentf
+!straight/repos/straight.el
