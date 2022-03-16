@@ -63,6 +63,7 @@ vscode:
 	code --install-extension redhat.vscode-yaml --force
 	code --install-extension vscode-icons-team.vscode-icons --force
 	code --install-extension vscodevim.vim --force
+	code --install-extension wholroyd.hcl --force
 	code --install-extension wholroyd.jinja --force
 	code --install-extension zhuangtongfa.material-theme --force
 	@echo -e "\033[0;32m>> vscode extensions have been installed\033[0m"

@@ -66,5 +66,9 @@
         "!Join sequence"
     ],
     "workbench.colorTheme": "One Dark Pro",
-    "window.zoomLevel": -1
+    "window.zoomLevel": -1,
+    "files.associations": {
+        "*.tf": "terraform",
+        "*.tfvars": "terraform"
+    }
 }
