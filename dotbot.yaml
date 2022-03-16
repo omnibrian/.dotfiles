@@ -17,6 +17,7 @@
     ~/bin/polybar-launch: bin/polybar/launch.sh
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
+    ~/.config/Code/User/settings.json: .config/Code/User/settings.json
     ~/.config/dunst/dunstrc: .config/dunst/dunstrc
     ~/.config/i3/config: .config/i3/config
     ~/.config/i3lock/config: .config/i3lock/config
