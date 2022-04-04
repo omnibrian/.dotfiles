@@ -185,6 +185,14 @@ bindsym $mod+q exec --no-startup-id $lock_screen
 # ================ system =============================================
 
 
+# ================ media ==============================================
+bindsym XF86AudioPlayPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+# ================ media ==============================================
+
+
 # ================ startup ============================================
 # background
 exec_always --no-startup-id feh --bg-scale ~/Pictures/backgrounds/i3wall-yellow.png

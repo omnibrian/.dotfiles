@@ -57,10 +57,12 @@ vscode:
 	code --install-extension golang.Go --force
 	code --install-extension hashicorp.terraform --force
 	code --install-extension ms-azuretools.vscode-docker --force
+	code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
 	code --install-extension ms-python.python --force
 	code --install-extension ms-vscode-remote.remote-containers --force
 	code --install-extension rebornix.ruby --force
 	code --install-extension redhat.vscode-yaml --force
+	code --install-extension vscjava.vscode-java-pack --force
 	code --install-extension vscode-icons-team.vscode-icons --force
 	code --install-extension vscodevim.vim --force
 	code --install-extension wholroyd.hcl --force

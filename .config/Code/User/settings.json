@@ -17,6 +17,7 @@
     "markdown.preview.fontSize": 13,
     "python.venvPath": "~/venvs",
     "python.linting.pycodestyleArgs": ["--max-line-length=500"],
+    "python.linting.pylintEnabled": true,
     "[python]": {
         "editor.tabSize": 4
     },
@@ -66,9 +67,9 @@
         "!Join sequence"
     ],
     "workbench.colorTheme": "One Dark Pro",
-    "window.zoomLevel": -1,
     "files.associations": {
         "*.tf": "terraform",
         "*.tfvars": "terraform"
-    }
+    },
+    "window.zoomLevel": -1
 }
