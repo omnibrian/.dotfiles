@@ -187,7 +187,7 @@
   :commands lsp
   :hook
   ((lsp-mode . lsp-enable-which-key-integration)
-   (python-mode . lsp)
+   ;;(python-mode . lsp)
    (yaml-mode . lsp))
   :init
   (setq lsp-keymap-prefix "C-c l")
@@ -229,21 +229,28 @@
 
 ;;;; user modes
 
+;; elpy -- github.com/jorgenschaefer/elpy
+(use-package elpy
+  :straight t
+  :defer 0.2
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
+
 ;; auto-virtualenv -- github.com/marcwebbie/auto-virtualenv
 (use-package auto-virtualenv
   ;;  :straight (auto-virtualenv :type git :host github :repo "marcwebbie/auto-virtualenv")
   :straight t
-  :defer 0.2)
-;;  :hook
-;;  ((python-mode . auto-virtualenv-set-virtualenv))
+  :defer 0.2
+  :hook
+  ((python-mode . auto-virtualenv-set-virtualenv)))
 
 ;; pyvenv -- github.com/jorgenschaefer/pyvenv
-(use-package pyvenv
-  :straight t
-  :defer 0.2
-  :config
-  (pyvenv-mode t)
-  (setq pyvenv-mode-line-indicator '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] "))))
+;;(use-package pyvenv
+;;  :straight t
+;;  :defer 0.2
+;;  :config
+;;  (pyvenv-mode t)
+;;  (setq pyvenv-mode-line-indicator '(pyvenv-virtual-env-name ("[venv:" pyvenv-virtual-env-name "] "))))
 
 ;; yaml-mode -- github.com/yoshiki/yaml-mode
 ;; requires npm install -g yaml-language-server
@@ -256,6 +263,11 @@
   :config
   (with-eval-after-load "lsp-mode"
     (add-to-list 'lsp-enabled-clients 'yamlls)))
+
+;; terraform-mode -- github.com/emacsorphanage/terraform-mode
+(use-package terraform-mode
+  :straight t
+  :defer 0.2)
 
 ;; TODO: go-mode -- github.com/dominikh/go-mode.el
 ;; ================ packages ===========================================
@@ -303,3 +315,20 @@
 
 (provide 'init)
 ;;; init.el ends here
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(elpy-modules
+   (quote
+    (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
+ '(elpy-syntax-check-command "pylint"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

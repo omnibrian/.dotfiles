@@ -1,8 +1,28 @@
 # Export temporary credentials from assuming a role with cli based on
 # configured awscli profile.
 
+assume_version='0.1.2'
+
+assume_usage() {
+  cat <<EOF
+Usage: aws-assume [-h | --help] [-v | --version] [--profile <profilename>] [--duration <seconds>]
+
+Export temporary AWS credentials from STS assume-role based on configured
+awscli profile. To stop using the assumed role, call the 'unassume' helper
+function.
+
+Available options:
+  -h, --help      Print this help message and exit
+  -v, --version   Print version and exit
+  -p, --profile   AWS profile to load (default: default)
+  -d, --duration  Duration in seconds for the temporary credentials (default: 8 hours)
+EOF
+}
+
 if ! (return 0 2>/dev/null) ; then
-  echo "This script is meant to be sourced, please run again but with 'source' in front"
+  assume_usage
+  echo
+  echo -e "\033[0;31mThis script is meant to be sourced, please run again but with 'source' in front\033[0m"
   exit 1
 fi
 
@@ -20,23 +40,6 @@ cleanup() {
   [[ -n "${assume_mfa_serial-}" ]]        && unset assume_mfa_serial
   [[ -n "${assume_mfa_token-}" ]]         && unset assume_mfa_token
   [[ -n "${assume_temp_creds-}" ]]        && unset assume_temp_creds
-}
-
-assume_version='0.1.2'
-assume_usage() {
-  cat <<EOF
-Usage: aws-assume [-h | --help] [-v | --version] [--profile <profilename>] [--duration <seconds>]
-
-Export temporary AWS credentials from STS assume-role based on configured
-awscli profile. To stop using the assumed role, call the `unassume` helper
-function.
-
-Available options:
-  -h, --help      Print this help message and exit
-  -v, --version   Print version and exit
-  -p, --profile   AWS profile to load (default: default)
-  -d, --duration  Duration in seconds for the temporary credentials (default: 8 hours)
-EOF
 }
 
 assume_parse_params() {

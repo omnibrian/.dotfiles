@@ -1,10 +1,14 @@
 *.cache
+
 auto-save-list/
 elpa/
+elpy/
 tutorial/
 transient/
 straight/
+
 .lsp-session-v1
 projectile-bookmarks.eld
 recentf
+
 !straight/repos/straight.el

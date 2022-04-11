@@ -72,7 +72,7 @@ def aws_user_roles_map(iam):
     for response in iam.get_paginator('list_users').paginate():
         for user in response['Users']:
             if '@' in user['UserName']:
-                users[user['UserName']] = list(map(
+                users[user['UserName'].lower()] = list(map(
                     lambda x: x['Key'],
                     iam.list_user_tags(UserName=user['UserName'])['Tags']
                 ))
