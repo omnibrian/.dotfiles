@@ -129,8 +129,15 @@ else
   return 1
 fi
 
+if [[ -z "${assume_temp_creds:-}" ]] ; then
+  echo
+  echo -e "\033[0;31mFailed to retrieve temporary AWS credentials, please try again\033[0m"
+  return 1
+fi
+
 # export temporary credentials
 assume_get_cred() {
+  # work around if jq isn't installed
   if ! type jq &>/dev/null ; then
     echo "${assume_temp_creds}" | python3 -c "import sys,json; print(json.load(sys.stdin)['Credentials']['${1}'])"
   else
@@ -151,8 +158,14 @@ if [[ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ]] ; then
     _OLD_VIRTUAL_PS1="(AWS:${assume_profile}) ${_OLD_VIRTUAL_PS1}"
   fi
 
-  _OLD_ASSUME_PS1="${PS1}"
-  PS1="(AWS:${assume_profile}) ${PS1}"
+  # handle overwriting old assume
+  if [[ -n "${_OLD_ASSUME_PS1:-}" ]] ; then
+    PS1="(AWS:${assume_profile}) ${_OLD_ASSUME_PS1}"
+  else
+    _OLD_ASSUME_PS1="${PS1}"
+    PS1="(AWS:${assume_profile}) ${PS1}"
+  fi
+
   export PS1
 fi
 
