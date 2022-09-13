@@ -10,5 +10,6 @@ straight/
 .lsp-session-v1
 projectile-bookmarks.eld
 recentf
+\#recentf\#
 
 !straight/repos/straight.el

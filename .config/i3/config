@@ -195,7 +195,7 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # ================ startup ============================================
 # background
-exec_always --no-startup-id feh --bg-scale ~/Pictures/backgrounds/i3wall-yellow.png
+exec_always --no-startup-id feh --bg-fill ~/Pictures/backgrounds/hannah_whisper.jpg
 
 # status bar
 exec_always --no-startup-id ~/bin/polybar-launch

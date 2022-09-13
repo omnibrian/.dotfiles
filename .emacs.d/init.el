@@ -58,6 +58,7 @@
 
 (setq-default tab-width 2)  ;; M-x set-variable RET tab-width RET 2
 (setq-default sh-basic-offset 2)
+(setq-default js-indent-level 2)
 
 ;; electric-indent-mode doesn't work with python-mode
 (add-hook 'electric-indent-functions
@@ -118,6 +119,7 @@
   (setq ivy-use-virtual-buffers t)
   (setq ivy-display-style 'fancy)
   (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-use-selectable-prompt t)
   (setq enable-recursive-minibuffers t)
   :config
   (ivy-mode 1))
@@ -187,7 +189,8 @@
   :commands lsp
   :hook
   ((lsp-mode . lsp-enable-which-key-integration)
-   ;;(python-mode . lsp)
+   ;; (python-mode . lsp)
+   ;; (js-mode . lsp)
    (yaml-mode . lsp))
   :init
   (setq lsp-keymap-prefix "C-c l")
@@ -269,6 +272,31 @@
   :straight t
   :defer 0.2)
 
+;; js2-mode -- github.com/mooz/js2-mode
+(use-package js2-mode
+  :straight t
+  :defer 0.2
+  :config
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode)))
+
+;; rjsx-mode -- github.com/felipeochoa/rjsx-mode
+(use-package rjsx-mode
+  :straight t
+  :defer 0.2)
+
+;; tide -- github.com/ananthakumaran/tide
+(use-package tide
+  :straight t
+  :defer 0.2
+  :after
+  (typescript-mode company flycheck)
+  (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+  :hook
+  ((js2-mode-hook . setup-tide-mode)
+   (typescript-mode . tide-setup)
+   (typescript-mode . tide-hl-identifier-mode)
+   (before-save . tide-format-before-save)))
+
 ;; TODO: go-mode -- github.com/dominikh/go-mode.el
 ;; ================ packages ===========================================
 
@@ -332,3 +360,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'downcase-region 'disabled nil)
