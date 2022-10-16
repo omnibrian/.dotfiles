@@ -3,5 +3,10 @@
 *.sw[o-z]
 *~
 
+# ssh
+.ssh/config.d/*
+!.ssh/config.d/main
+!.ssh/config.d/aws
+
 # macos
 .DS_Store
