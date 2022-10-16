@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+
+# --- global settings ---
+
+# set focus to follow mouse movements (options: off, autoraise, autofocus)
+yabai -m config focus_follows_mouse   autofocus
+
+# move mouse when changing focus
+yabai -m config mouse_follows_focus   on
+
+# which display to create new windows in (options: default, focused, cursor)
+yabai -m config window_origin_display focused
+
+# create new windows to right or bottom (options: first_child, second_child)
+yabai -m config window_placement      second_child
+
+# floating windows are always on top
+yabai -m config window_topmost        on
+
+# render windows with configured opacity
+yabai -m config window_opacity        on
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.90
+
+# modify window shadows (options: on, off, float)
+yabai -m config window_shadow         float
+
+# window borders
+yabai -m config window_border         off
+yabai -m config window_border_width   4
+
+#yabai -m config active_window_border_color   0xff775759
+#yabai -m config normal_window_border_color   0xff505050
+#yabai -m config insert_window_border_color   0xffd75f5f
+
+# auto balance all windows to get same amount of space
+yabai -m config auto_balance          off
+# ratio of space old window gets of available space
+yabai -m config split_ratio           0.50
+
+# modifier key for mouse interactions
+yabai -m config mouse_modifier        ctrl
+# action on left click
+yabai -m config mouse_action1         resize
+# action on right click
+yabai -m config mouse_action2         move
+
+# --- space settings ---
+
+# enable tiling (options: bsp, float)
+yabai -m config layout                bsp
+
+# padding from screen edges
+yabai -m config top_padding           10
+yabai -m config bottom_padding        10
+yabai -m config left_padding          10
+yabai -m config right_padding         10
+
+# padding between windows
+yabai -m config window_gap            5
+
+echo 'yabai configuration loaded..'

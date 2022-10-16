@@ -59,6 +59,7 @@
 (setq-default tab-width 2)  ;; M-x set-variable RET tab-width RET 2
 (setq-default sh-basic-offset 2)
 (setq-default js-indent-level 2)
+(setq-default typescript-indent-level 2)
 
 ;; electric-indent-mode doesn't work with python-mode
 (add-hook 'electric-indent-functions
@@ -284,17 +285,46 @@
   :straight t
   :defer 0.2)
 
+(defun setup-tide-mode ()
+  "Help setup tide."
+  (interactive)
+  (tide-setup)
+
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  ;; (setq flycheck-auto-change-delay 1.5)
+
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+
+  ;; (whitespace-mode)
+  ;; (setq whitespace-line-column 120)
+  ;; (setq whitespace-style '(face lines-tail trailing))
+
+  (company-mode +1)
+  (setq company-tooltip-align-annotations t))
+
+;; typescript-mode -- github.com/emacs-typescript/typescript.el
+(use-package typescript-mode
+  :straight t
+  :defer 0.2
+  :mode ("\\.ts\\'" . typescript-mode)
+  :init
+  (setq typescript-indent-level 2)
+  (setq typescript-expr-indent-offset 2)
+  :hook
+  ((typescript-mode . setup-tide-mode)))
+
 ;; tide -- github.com/ananthakumaran/tide
 (use-package tide
   :straight t
   :defer 0.2
   :after
-  (typescript-mode company flycheck)
+  (typescript-mode)
   (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
   :hook
   ((js2-mode-hook . setup-tide-mode)
-   (typescript-mode . tide-setup)
-   (typescript-mode . tide-hl-identifier-mode)
+   (typescript-mode . setup-tide-mode)
    (before-save . tide-format-before-save)))
 
 ;; TODO: go-mode -- github.com/dominikh/go-mode.el
@@ -338,6 +368,9 @@
 
 (setenv "PATH" (concat (getenv "HOME") "/.local/bin" ":" (getenv "PATH")))
 (add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
+
+;; fix option key not getting recognized as meta in mac
+(setq mac-option-modifier 'meta)
 ;; ================ misc ===============================================
 
 

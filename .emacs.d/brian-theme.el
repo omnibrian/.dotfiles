@@ -21,7 +21,7 @@
       (hl-background "#272931"))
   (custom-theme-set-faces
    'brian
-   `(default                             ((t (:background ,black :foreground ,white :height 90))))
+   `(default                             ((t (:background ,black :foreground ,white :height 100))))
    `(cursor                              ((t (:background ,white :foreground ,black))))
    `(escape-glyph                        ((t (:foreground ,teal))))
    `(homoglyph                           ((t (:foreground ,teal))))

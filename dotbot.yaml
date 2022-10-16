@@ -4,17 +4,17 @@
       relink: true
 
 - link:
-    ~/bin/aws-ansible: bin/aws/ansible.sh
-    ~/bin/aws-assume: bin/aws/assume.sh
-    ~/bin/aws-audit: bin/aws/audit.py
-    ~/bin/aws-instances: bin/aws/instances.sh
-    ~/bin/aws-proxy: bin/aws/proxy.sh
-    ~/bin/aws-users: bin/aws/users.py
-    ~/bin/i3lock-launch: bin/i3lock/launch.sh
-    ~/bin/kubectl-eks: bin/kubectl/eks.sh
-    ~/bin/kubectl-kdiff: bin/kubectl/kdiff.sh
-    ~/bin/kubectl-prom: bin/kubectl/prom.sh
-    ~/bin/polybar-launch: bin/polybar/launch.sh
+    ~/.local/bin/aws-ansible: bin/aws/ansible.sh
+    ~/.local/bin/aws-assume: bin/aws/assume.sh
+    ~/.local/bin/aws-audit: bin/aws/audit.py
+    ~/.local/bin/aws-instances: bin/aws/instances.sh
+    ~/.local/bin/aws-proxy: bin/aws/proxy.sh
+    ~/.local/bin/aws-users: bin/aws/users.py
+    ~/.local/bin/i3lock-launch: bin/i3lock/launch.sh
+    ~/.local/bin/kubectl-eks: bin/kubectl/eks.sh
+    ~/.local/bin/kubectl-kdiff: bin/kubectl/kdiff.sh
+    ~/.local/bin/kubectl-prom: bin/kubectl/prom.sh
+    ~/.local/bin/polybar-launch: bin/polybar/launch.sh
     ~/.bash_aliases: .bash_aliases
     ~/.bashrc: .bashrc
     ~/.config/Code/User/keybindings.json: .config/Code/User/keybindings.json
@@ -25,7 +25,9 @@
     ~/.config/libinput-gestures.conf: .config/libinput-gestures.conf
     ~/.config/polybar: .config/polybar
     ~/.config/rofi: .config/rofi
+    ~/.config/skhd/skhdrc: .config/skhd/skhdrc
     ~/.config/terminator/config: .config/terminator/config
+    ~/.config/yabai/yabairc: .config/yabai/yabairc
     ~/.dircolors: .dircolors
     ~/.dircolors.256color: .dircolors.256color
     ~/.emacs.d: .emacs.d
