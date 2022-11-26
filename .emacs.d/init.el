@@ -49,6 +49,19 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
+
+;; don't need to here any bell sounds, so flash mode line instead
+;; https://www.emacswiki.org/emacs/AlarmBell
+(defun flash-mode-line ()
+  "Invert mode line face for 0.1 seconds."
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+(setq visible-bell nil
+      ring-bell-function 'flash-mode-line)
+
+;; matching parens
+(show-paren-mode 1)
+(setq show-paren-style 'parenthesis)
 ;; ================ decorations ========================================
 
 
@@ -60,6 +73,10 @@
 (setq-default sh-basic-offset 2)
 (setq-default js-indent-level 2)
 (setq-default typescript-indent-level 2)
+(setq-default css-indent-offset 2)
+
+;; trailing whitespace
+(setq-default show-trailing-whitespace t)
 
 ;; electric-indent-mode doesn't work with python-mode
 (add-hook 'electric-indent-functions
@@ -75,6 +92,41 @@
 
 (add-hook 'write-file-functions 'delete-trailing-whitespace)
 ;; ================ whitespace =========================================
+
+
+;; ================ window switching ===================================
+(global-set-key (kbd "C-c h") 'windmove-left)
+(global-set-key (kbd "C-c j") 'windmove-down)
+(global-set-key (kbd "C-c k") 'windmove-up)
+(global-set-key (kbd "C-c l") 'windmove-right)
+;; ================ window switching ===================================
+
+
+;; ================ misc ===============================================
+;; always follow symlinks to version controlled files
+(setq vc-follow-symlinks t)
+
+;; aint nobody got time for 'yes', we use 'y' instead here
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; update PATH to match what's in shell rcfiles
+(defun set-exec-path-from-shell ()
+  "Run shell to steal $PATH from it and set 'exec-path' accordingly."
+  (interactive)
+  (let ((path-from-shell
+         (replace-regexp-in-string
+          "[ \t\n]*$"
+          ""
+          (shell-command-to-string "$SHELL --login -c 'echo \$PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(setenv "PATH" (concat (getenv "HOME") "/.local/bin" ":" (getenv "PATH")))
+(add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
+
+;; fix option key not getting recognized as meta in mac
+(setq mac-option-modifier 'meta)
+;; ================ misc ===============================================
 
 
 ;; ================ packages ===========================================
@@ -276,9 +328,7 @@
 ;; js2-mode -- github.com/mooz/js2-mode
 (use-package js2-mode
   :straight t
-  :defer 0.2
-  :config
-  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode)))
+  :defer 0.2)
 
 ;; rjsx-mode -- github.com/felipeochoa/rjsx-mode
 (use-package rjsx-mode
@@ -327,51 +377,16 @@
    (typescript-mode . setup-tide-mode)
    (before-save . tide-format-before-save)))
 
+;; flymake-shellcheck -- github.com/federicotdn/flymake-shellcheck
+(use-package flymake-shellcheck
+  :straight t
+  :defer 0.2
+  :commands flymake-shellcheck-load
+  :hook
+  ((sh-mode . flymake-shellcheck-load)))
+
 ;; TODO: go-mode -- github.com/dominikh/go-mode.el
 ;; ================ packages ===========================================
-
-
-;; ================ misc ===============================================
-;; don't need to here any bell sounds, so flash mode line instead
-;; https://www.emacswiki.org/emacs/AlarmBell
-(defun flash-mode-line ()
-  "Invert mode line face for 0.1 seconds."
-  (invert-face 'mode-line)
-  (run-with-timer 0.1 nil #'invert-face 'mode-line))
-(setq visible-bell nil
-      ring-bell-function 'flash-mode-line)
-
-;; always follow symlinks to version controlled files
-(setq vc-follow-symlinks t)
-
-;; matching parens
-(show-paren-mode 1)
-(setq show-paren-style 'parenthesis)
-
-;; trailing whitespace
-(setq-default show-trailing-whitespace t)
-
-;; aint nobody got time for 'yes', we use 'y' instead here
-(defalias 'yes-or-no-p 'y-or-n-p)
-
-;; update PATH to match what's in shell rcfiles
-(defun set-exec-path-from-shell ()
-  "Run shell to steal $PATH from it and set 'exec-path' accordingly."
-  (interactive)
-  (let ((path-from-shell
-         (replace-regexp-in-string
-          "[ \t\n]*$"
-          ""
-          (shell-command-to-string "$SHELL --login -c 'echo \$PATH'"))))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
-
-(setenv "PATH" (concat (getenv "HOME") "/.local/bin" ":" (getenv "PATH")))
-(add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
-
-;; fix option key not getting recognized as meta in mac
-(setq mac-option-modifier 'meta)
-;; ================ misc ===============================================
 
 
 (provide 'init)
@@ -393,4 +408,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(put 'downcase-region 'disabled nil)
