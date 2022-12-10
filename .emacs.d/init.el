@@ -40,7 +40,7 @@
   (let* ((diff (abs (- line-number linum-last-pos)))
 	       (line-number (if (= diff 0) line-number diff))
 	       (face (if (= diff 0) 'linum-current-line-face 'linum)))
-    (propertize (format (concat "%" linum-border-width "d") line-number)
+    (propertize (format (concat "%" linum-border-width "d ") line-number)
                 'face face)))
 
 (setq linum-format 'linum-relative)

@@ -35,5 +35,6 @@
     ~/.gitignore: .gitignore
     ~/.ssh/config: .ssh/config
     ~/.ssh/config.d: .ssh/config.d
+    ~/.tmux.conf: .tmux.conf
     ~/.xmodmaprc: .xmodmaprc
     ~/.zshrc: .zshrc

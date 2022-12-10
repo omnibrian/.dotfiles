@@ -7,7 +7,7 @@
 (deftheme brian
   "Brian's custom theme")
 
-(let ((black         "#101114")
+(let ((black         "#000000")  ;; was "#101114"
       (white         "#C8CCD5")
       (red           "#E06C75")
       (green         "#99C37A")
