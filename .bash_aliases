@@ -22,6 +22,8 @@ addpath() {
 }
 
 addpath "$HOME/.local/bin"
+addpath "$HOME/bin"
+addpath "$HOME/go/bin"
 
 # ls colors
 COLORS=
