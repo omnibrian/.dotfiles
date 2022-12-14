@@ -94,6 +94,59 @@
 ;; ================ whitespace =========================================
 
 
+;; ================ term-toggle ========================================
+(defun term-toggle--start-shell (shell name)
+  (cond ((or (eq shell 'term) (eq shell 'ansi-term))
+         (funcall shell (getenv "SHELL")))
+        (t (funcall shell)))
+  (let ((proc (get-buffer-process (get-buffer name))))
+    (when proc
+      (set-process-query-on-exit-flag proc nil)
+      (set-process-sentinel
+       proc (lambda (__ evt)
+              (when (string-match-p "\\(?:exited\\|finished\\)" evt)
+                (kill-buffer)))))))
+
+(defun term-toggle--toggle (term-buffer)
+  (let ((term-window (get-buffer-window term-buffer))
+        (minimum-split-height 10)
+        (default-height 15))
+    (if term-window
+        (progn
+          (bury-buffer term-buffer)
+          (delete-window term-window))
+      (progn
+        (split-window-vertically)
+        (other-window 1)
+        (pop-to-buffer-same-window term-buffer t)
+        (set-window-dedicated-p term-window t)
+        (when (>= (window-total-height (select-window))
+                  minimum-split-height)
+          (let ((delta (- (window-height (selected-window)) default-height)))
+            (if (> delta 0) (shrink-window delta))))))))
+
+(defun term-toggle (shell)
+  (let ((name (format "*%s*" (if (eq shell 'term) "terminal" shell)))
+        (original-buffer (current-buffer)))
+    (unless (get-buffer name)
+      (term-toggle--start-shell shell name)
+      (pop-to-buffer-same-window original-buffer))
+    (term-toggle--toggle (get-buffer name))))
+
+(defun term-toggle--term ()
+  (interactive) (term-toggle 'term))
+
+(defun term-toggle--shell ()
+  (interactive) (term-toggle 'shell))
+
+(defun term-toggle--eshell ()
+  (interactive) (term-toggle 'eshell))
+
+(global-set-key (kbd "C-c t") 'term-toggle--term)
+(global-set-key (kbd "C-c M-t") 'term-toggle--term)
+;; ================ term-toggle ========================================
+
+
 ;; ================ window switching ===================================
 (global-set-key (kbd "C-c h") 'windmove-left)
 (global-set-key (kbd "C-c j") 'windmove-down)
@@ -145,6 +198,11 @@
 ;; make straight-use-package defacto
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
+
+;; darcula-theme -- gitlab.com/fommil/emacs-darcula-theme
+;; (use-package darcula-theme
+;;   :straight t
+;;   :defer 0.1)
 
 ;; projectile -- github.com/bbatsov/projectile
 (use-package projectile
@@ -402,6 +460,7 @@
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
  '(elpy-syntax-check-command "pylint"))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
