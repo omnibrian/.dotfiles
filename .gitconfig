@@ -31,3 +31,5 @@
 	oops = commit --amend --no-edit
 [core]
 	excludesFile = ~/.gitignore
+[init]
+	defaultBranch = main

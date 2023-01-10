@@ -28,7 +28,7 @@ endif
 git:
 	@echo ">> adding global git config"
 	git config -f $(GITCONFIG_FILE) -l | awk -F= '{ print $$1 " '"'"'" $$2 "'"'"'" }' | xargs -L 1 git config --global
-	@echo -e "\033[0;33m>> don't forget to set git config --global user.name and user.email!!\033[0m"
+	@echo "\033[0;33m>> don't forget to set git config --global user.name and user.email!!\033[0m"
 	@echo
 
 .PHONY: guake-load
@@ -67,14 +67,14 @@ else
 endif
 
 install: dotbot fzf git npm vscode
-	@echo -e "\033[0;32m>> configuration has been installed\033[0m"
+	@echo "\033[0;32m>> configuration has been installed\033[0m"
 	@echo
 	@echo ">> Guake configuration loading was skipped, to run manually:"
-	@echo -e "    \033[1;37mmake guake-load\033[0m"
+	@echo "    \033[1;37mmake guake-load\033[0m"
 	@echo
 
 dconf-dump: guake-dump
-	@echo -e "\033[0;32m>> dconf configuration files have been updated\033[0m"
+	@echo "\033[0;32m>> dconf configuration files have been updated\033[0m"
 
 npm:
 ifndef NPM
@@ -112,5 +112,5 @@ else
 	code --install-extension wholroyd.hcl --force
 	code --install-extension wholroyd.jinja --force
 	code --install-extension zhuangtongfa.material-theme --force
-	@echo -e "\033[0;32m>> vscode extensions have been installed\033[0m"
+	@echo "\033[0;32m>> vscode extensions have been installed\033[0m"
 endif
