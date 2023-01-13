@@ -6,7 +6,7 @@ set -euo pipefail
 
 usage() {
   cat <<EOF
-Usage: aws-errors [-h | --help] [--profile <profile>] [--region <region>]
+Usage: aws-errors [-h | --help] [--profile <profile>] [--region <region>] [--hours <hours>]
 
 List all CloudTrail errors from the last hour.
 
@@ -14,6 +14,7 @@ Available options:
   -h, --help        Print this help message and exit
   -p, --profile     AWS profile to use
   -r, --region      AWS region to use
+  --hours           Number of hours in the past to list errors for
 EOF
 }
 
@@ -28,6 +29,7 @@ die() {
 
 parse_params() {
   aws_params=""
+  hours=1
 
   while : ; do
     case "${1-}" in
@@ -41,6 +43,10 @@ parse_params() {
         ;;
       -r | --region)
         aws_params="${aws_params} --region ${2-}"
+        shift
+        ;;
+      --hours)
+        hours="${2-}"
         shift
         ;;
       -?*)
@@ -59,8 +65,8 @@ parse_params "$@"
 (
   echo 'Time,Identity ARN,Event ID,Service,Action,Error,Message';
   aws ${aws_params} cloudtrail lookup-events \
-      --start-time "$(date -u -d '1 hour ago' +'%Y-%m-%dT%H:%M:%SZ')" \
-      --end-time "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+      --start-time "$(date --utc -d "${hours} hours ago" +'%s')" \
+      --end-time "$(date --utc +'%s')" \
       --query 'Events[*].CloudTrailEvent' \
       --output text \
     | jq -r '. | select(.eventType == "AwsApiCall" and .errorCode != null) | [.eventTime, .userIdentity.arn, .eventID, .eventSource, .eventName, .errorCode, .errorMessage] | @csv'
