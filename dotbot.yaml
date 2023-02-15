@@ -9,6 +9,7 @@
     ~/.local/bin/aws-audit: bin/aws/audit.py
     ~/.local/bin/aws-errors: bin/aws/errors.sh
     ~/.local/bin/aws-instances: bin/aws/instances.sh
+    ~/.local/bin/aws-ssh: bin/aws/ssh.sh
     ~/.local/bin/aws-proxy: bin/aws/proxy.sh
     ~/.local/bin/aws-users: bin/aws/users.py
     ~/.local/bin/i3lock-launch: bin/i3lock/launch.sh

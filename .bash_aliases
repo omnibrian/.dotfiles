@@ -10,11 +10,6 @@ export PAGER=${PAGER:-less -R}
 export SYSTEMD_PAGER=  # disable systemctl's auto-paging
 export AWS_PAGER=      # disable awscli auto-paging
 
-# PATH manipulation
-if ! [[ "$MANPATH" =~ "$HOME/.local/share/man" ]] ; then
-	export MANPATH="$MANPATH:$HOME/.local/share/man"
-fi
-
 addpath() {
 	if ! [[ "$PATH" =~ "$1" ]] ; then
 		export PATH="$1:$PATH"

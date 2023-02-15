@@ -1,25 +1,20 @@
 #!/usr/bin/env bash
 #
-# Start localhost binding through SSM session to proxy server.
+# Start SSM session using instance name.
 
 set -euo pipefail
 
 usage() {
   cat <<EOF
 Usage: aws-proxy --name <instancename> [-h | --help] [--profile <profile>] [--region <region>]
-           [--local-port <localport>] [--remote-port <remoteport>] [--port <port>] [--url <url>]
 
-Start forward local port to remote server port through SSM session.
+Start SSM session to remote server.
 
 Available options:
   -h, --help        Print this help message and exit
   -p, --profile     AWS profile to load
   -r, --region      AWS region to use
   -n, --name        Name of instance to use
-  --port            Set both local and remote ports
-  -l, --local-port  Local port to use
-  --remote-port     Remote port to use
-  --url             Forward port of a remote url
 EOF
 }
 
@@ -35,9 +30,6 @@ die() {
 parse_params() {
   aws_params="--output text"
   instance_name=""
-  local_port="8443"
-  remote_port="443"
-  url="localhost"
 
   while : ; do
     case "${1-}" in
@@ -55,23 +47,6 @@ parse_params() {
         ;;
       -n | --name)
         instance_name="${2-}"
-        shift
-        ;;
-      --port)
-        local_port="${2-}"
-        remote_port="${2-}"
-        shift
-        ;;
-      -l | --local-port)
-        local_port="${2-}"
-        shift
-        ;;
-      --remote-port)
-        remote_port="${2-}"
-        shift
-        ;;
-      --url)
-        url="${2-}"
         shift
         ;;
       -?*)
@@ -101,6 +76,4 @@ if [[ -z "${instance_id}" ]]; then
 fi
 
 aws ${aws_params} ssm start-session \
-  --document-name AWS-StartPortForwardingSessionToRemoteHost \
-  --parameters "host=[${url}],portNumber=[${remote_port}],localPortNumber=[${local_port}]" \
   --target "${instance_id}"
