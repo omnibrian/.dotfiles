@@ -1,4 +1,5 @@
 *.cache
+session.*
 
 auto-save-list/
 elpa/
