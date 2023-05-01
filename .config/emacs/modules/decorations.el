@@ -23,23 +23,23 @@
   "Face for highlighting the current line number."
   :group 'linum)
 
+(defvar linum-current-line 1 "Current line number.")
+(defvar linum-border-width 1 "Border width for linum display.")
+
 (defadvice linum-update (before advice-linum-update activate)
   "Get the last position of linum and set border width."
-  (setq linum-last-pos     (line-number-at-pos)
-	linum-border-width (number-to-string
-			    (+ 1 (length
-				  (number-to-string
-				   (count-lines
-				    (point-min)
-				    (point-max))))))))
+  (let* ((max-line-number  (count-lines (point-min) (point-max)))
+         (base-linum-width (length (number-to-string max-line-number))))
+    (setq linum-border-width (number-to-string (+ 1 base-linum-width))
+          linum-current-line (line-number-at-pos))))
 
 (defun linum-relative (line-number)
   "Helper for relative line numbers.  LINE-NUMBER is current line number."
-  (let* ((diff        (abs (- line-number linum-last-pos)))
-	 (line-number (if (= diff 0) line-number diff))
-	 (face        (if (= diff 0) 'linum-current-line-face 'linum)))
+  (let* ((diff        (abs (- line-number linum-current-line)))
+	       (line-number (if (= diff 0) line-number diff))
+	       (face        (if (= diff 0) 'linum-current-line-face 'linum)))
     (propertize (format (concat "%" linum-border-width "d ") line-number)
-		'face face)))
+		            'face face)))
 
 (setq linum-format 'linum-relative)
 

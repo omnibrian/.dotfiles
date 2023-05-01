@@ -14,5 +14,3 @@
  package-enable-at-startup    nil
  gc-cons-threshold            most-positive-fixnum
  frame-inhibit-implied-resize t)
-
-(setq-default mode-line-format nil)

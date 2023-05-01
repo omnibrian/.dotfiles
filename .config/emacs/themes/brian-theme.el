@@ -3,6 +3,7 @@
 (deftheme brian
   "Custom Brian theme.")
 
+;; default faces
 (let ((black         "#101114")
       (white         "#C8CCD5")
       (red           "#E06C75")
@@ -60,6 +61,12 @@
    `(next-error                          ((t (:inherit (region)))))
    `(query-replace                       ((t (:inherit (isearch)))))
    `(hl-line                             ((t (:background ,hl-background))))))
+
+;; override background when frame is X window
+(defun on-after-init ()
+  (when (display-graphic-p)
+    (set-face-background 'default "#000000")))
+(add-hook 'window-setup-hook 'on-after-init)
 
 (provide-theme 'brian)
 
