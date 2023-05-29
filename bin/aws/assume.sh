@@ -12,10 +12,11 @@ awscli profile. To stop using the assumed role, call the 'unassume' helper
 function.
 
 Available options:
-  -h, --help      Print this help message and exit
-  -v, --version   Print version and exit
-  -p, --profile   AWS profile to load (default: default)
-  -d, --duration  Duration in seconds for the temporary credentials (default: 8 hours)
+  -h, --help         Print this help message and exit
+  -v, --version      Print version and exit
+  -p, --profile      AWS profile to load (default: default)
+  -d, --duration     Duration in seconds for the temporary credentials (default: 8 hours)
+  -a, --org-account  Account ID to assume OrganizationAccountAccessRole in
 EOF
 }
 
@@ -33,6 +34,7 @@ cleanup() {
   [[ -n "${assume_version-}" ]]           && unset assume_version
   [[ -n "${assume_profile-}" ]]           && unset assume_profile
   [[ -n "${assume_duration-}" ]]          && unset assume_duration
+  [[ -n "${assume_org_account-}" ]]       && unset assume_org_account
   [[ -n "${assume_access_key_id-}" ]]     && unset assume_access_key_id
   [[ -n "${assume_secret_access_key-}" ]] && unset assume_secret_access_key
   [[ -n "${assume_role_arn-}" ]]          && unset assume_role_arn
@@ -44,7 +46,8 @@ cleanup() {
 
 assume_parse_params() {
   assume_profile='default'
-  assume_duration='28800'
+  assume_duration='3600'
+  assume_org_account=''
 
   while : ; do
     case "${1-}" in
@@ -62,6 +65,10 @@ assume_parse_params() {
         ;;
       -d | --duration)
         assume_duration="${2-}"
+        shift
+        ;;
+      -a | --org-account)
+        assume_org_account="${2-}"
         shift
         ;;
       -?*)
@@ -88,7 +95,22 @@ assume_get_config() {
   aws configure get --profile ${assume_profile} ${1} 2>/dev/null
 }
 
-if [[ -n "$(assume_get_config role_arn)" ]] ; then
+if [[ -n "${assume_org_account}" ]]; then
+  assume_partition=$(\
+    aws sts get-caller-identity \
+      --profile ${assume_profile} \
+      --query Arn \
+      --output text \
+    | cut -d: -f2)
+
+  assume_temp_creds=$(\
+    aws sts assume-role \
+      --profile ${assume_profile} \
+      --role-arn "arn:${assume_partition}:iam::${assume_org_account}:role/OrganizationAccountAccessRole" \
+      --role-session-name "assumed-role_${assume_role_arn##*/}" \
+      --duration-seconds ${assume_duration} \
+      --output json)
+elif [[ -n "$(assume_get_config role_arn)" ]] ; then
   assume_role_arn=$(assume_get_config role_arn)
   assume_source_profile=$(assume_get_config source_profile)
   assume_mfa_serial=$(assume_get_config mfa_serial)

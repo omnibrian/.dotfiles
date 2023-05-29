@@ -30,8 +30,8 @@ elif [[ -e "$HOME/.dircolors" ]] ; then
 	COLORS="$HOME/.dircolors"
 fi
 
-if [[ -n "$COLORS" ]] ; then
-	eval "$(dircolors --sh $COLORS)"
+if [[ -n "$COLORS" ]] && command -v dircolors &>/dev/null; then
+	eval "$(dircolors --sh "$COLORS")"
 fi
 # ================ exports ============================================
 
@@ -58,6 +58,7 @@ alias emac='emacsclient -nw -c'
 alias k='kubectl'
 alias kc='kubectx'
 alias kn='kubens'
+alias makepkginfo='python3 ~/git/munki/code/client/makepkginfo'
 # ================ aliases ============================================
 
 
@@ -66,18 +67,18 @@ alias kn='kubens'
 extract() {
 	if [[ -f $1 ]] ; then
 		case $1 in
-			*.tar.bz2) tar xvjf $1 ;;
-			*.tar.gz) tar xvzf $1 ;;
-			*.tar.xz) tar xf $1 ;;
-			*.bz2) bunzip2 $1 ;;
-			*.gz) gunzip $1 ;;
-			*.tar) tar xvf $1 ;;
-			*.tbz2) tar xvjf $1 ;;
-			*.tgz) tar xvzf $1 ;;
-			*.zip) unzip $1 ;;
-			*.Z) uncompress $1 ;;
-			*.7z) 7za x $1 ;;
-			*.rar) unrar $1 ;;
+			*.tar.bz2) tar xvjf "$1" ;;
+			*.tar.gz) tar xvzf "$1" ;;
+			*.tar.xz) tar xf "$1" ;;
+			*.bz2) bunzip2 "$1" ;;
+			*.gz) gunzip "$1" ;;
+			*.tar) tar xvf "$1" ;;
+			*.tbz2) tar xvjf "$1" ;;
+			*.tgz) tar xvzf "$1" ;;
+			*.zip) unzip "$1" ;;
+			*.Z) uncompress "$1" ;;
+			*.7z) 7za x "$1" ;;
+			*.rar) unrar "$1" ;;
 			*) echo "'$1' not a recognized file format" ;;
 		esac
 	else
@@ -86,7 +87,7 @@ extract() {
 }
 
 shrink-path() {
-	echo ${PWD/#$HOME/\~} | awk -F/ '{ for(i=1; i<=NF-1; i++) { printf substr($i,1,1) "/" } printf $NF }'
+	echo "${PWD/#$HOME/~}" | awk -F/ '{ for(i=1; i<=NF-1; i++) { printf substr($i,1,1) "/" } printf $NF }'
 }
 
 git-branch() {
@@ -103,5 +104,19 @@ git-dirty() {
 	type git &>/dev/null || return
 	[[ -n "$(git status --porcelain 2>/dev/null)" ]] || return
 	echo '*'
+}
+
+newdev() {
+  destination=$(cd "${1:-$(pwd)}" || (echo "ERROR: could not 'cd ${1}'"; return); pwd)
+  name=${2:-$(basename "${destination}")}
+
+  # append number if there's going to be a naming collision
+  existing_panes=$(tmux list-windows -F '#W' | grep -c "${name}")
+  if [[ ${existing_panes} -ne 0 ]]; then
+    name="${name}$((existing_panes + 1))"
+  fi
+
+  tmux new-window -n "${name}" -c "${destination}" -d 'emacs -nw'
+  tmux split-window -v -t "${name}" -c "${destination}" -l 20 -d
 }
 # ================ utilities ==========================================

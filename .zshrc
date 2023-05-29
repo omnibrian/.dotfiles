@@ -92,6 +92,7 @@ sourceif /etc/zshrc
 sourceif $HOME/.env
 sourceif $HOME/.bash_aliases
 sourceif $HOME/.fzf.zsh
+sourceif $HOME/.docker/init-zsh.sh || true
 # ================ common-files =======================================
 
 

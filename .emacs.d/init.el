@@ -220,6 +220,7 @@
   (setq projectile-project-search-path '(("~/git/" . 2) ("~/.dotfiles" . 0)))
   :config
   (projectile-mode +1)
+  (add-to-list 'projectile-globally-ignored-directories "^node_modules$")
   (with-eval-after-load "neotree"
     (with-eval-after-load "auto-virtualenv"
       (setq projectile-switch-project-action
@@ -472,3 +473,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'downcase-region 'disabled nil)

@@ -11,6 +11,7 @@ sourceif /etc/bashrc
 sourceif $HOME/.env
 sourceif $HOME/.bash_aliases
 sourceif $HOME/.fzf.bash
+sourceif $HOME/.docker/init-bash.sh || true
 # ================ common-files =======================================
 
 
