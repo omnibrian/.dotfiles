@@ -1,315 +1,242 @@
 ;; -*- lexical-binding: t -*-
 
-;; based on company -- github.com/company-mode/company-mode
+;; github.com/company-mode/company-mode
 
-(require 'cl-lib)
-(require 'subr-x)
-(require 'pcase)
+(setq
+ company-tooltip-align-annotations t
+ company-minimum-prefix-length 1)
 
-(defgroup tcomplete nil
-  "Inline text completion."
-  :group 'abbrev
-  :group 'convenience
-  :group 'matching)
+;; add company-mode folder to load path
+(add-to-list 'load-path (concat dots--modules-dir "company-mode"))
 
-(defgroup tcomplete-faces nil
-  "Faces used by tcomplete."
-  :group 'tcomplete
-  :group 'faces)
+;; --- autoload ---
+;; modes
+(autoload 'company-mode "company"
+  "\"complete anything\""
+  t
+  nil)
 
-(defcustom tcomplete-backends `(tcomplete-semantic
-                                tcomplete-cmake
-                                tcomplete-capf
-                                tcomplete-clang
-                                tcomplete-files
-                                (tcomplete-dabbrev-code
-                                 tcomplete-gtags
-                                 tcomplete-etags
-                                 tcomplete-keywords)
-                                tcomplete-oddmuse
-                                tcomplete-company-dabbrev)
-  "List of completion engines to activate.")
+(put 'global-company-mode 'globalized-minor-mode t)
 
-(defvar tcomplate-async-wait 0.03
-  "Pause between checks to see if value has been set.")
+(defvar global-company-mode nil
+  "Non-nil if Global Company mode is enabled.")
 
-(defvar tcomplete-async-timeout 2
-  "Maximum wait time for an async call.")
+(custom-autoload 'global-company-mode "company" nil)
 
-(defvar tcomplete-active-keymap
+(autoload 'global-company-mode "company"
+  "Toggle Company mode in all buffers."
+  t
+  nil)
+
+(autoload 'company-manual-begin "company"
+  nil
+  t
+  nil)
+
+(autoload 'company-complete "company"
+  "Insert the common part of all candidates or the current selection."
+  t
+  nil)
+
+(register-definition-prefixes "company" '("company-"))
+
+;; abbrev
+(autoload 'company-abbrev "company-abbrev"
+  "\"company-mode\" completion backend for abbrev."
+  t
+  nil)
+
+(register-definition-prefixes "company-abbrev" '("company-abbrev-insert"))
+
+;; bbdb
+(autoload 'company-bbdb "company-bbdb"
+  "\"company-mode\" completion backend for BBDB."
+  t
+  nil)
+
+(register-definition-prefixes "company-bbdb" '("company-bbdb-"))
+
+;; capf
+(register-definition-prefixes "company-capf" '("company-"))
+
+;; clang
+(register-definition-prefixes "company-clang" '("company-clang"))
+
+;; cmake
+(register-definition-prefixes "company-cmake" '("company-cmake"))
+
+;; css
+(autoload 'company-css "company-css"
+  "\"company-mode\" completion backend for \"css-mode\"."
+  t
+  nil)
+
+(register-definition-prefixes "company-css" '("company-css-"))
+
+;; dabbrev
+(autoload 'company-dabbrev "company-dabbrev"
+  "dabbrev-like \"company-mode\" completion backend."
+  t
+  nil)
+
+(register-definition-prefixes "company-dabbrev" '("company-dabbrev-"))
+
+;; dabbrev-code
+(autoload 'company-dabbrev-code "company-dabbrev-code"
+  "dabbrev-like \"company-mode\" backend for code."
+  t
+  nil)
+
+(register-definition-prefixes "company-dabbrev-code" '("company-dabbrev-code-"))
+
+;; eclim
+(register-definition-prefixes "company-eclim" '("company-eclim"))
+
+;; elisp
+(autoload 'company-elisp "company-elisp"
+  "\"company-mode\" completion backend for Emacs Lisp."
+  t
+  nil)
+
+(register-definition-prefixes "company-elisp" '("company-elisp-"))
+
+;; etags
+(autoload 'company-etags "company-etags"
+  "\"company-mode\" completion backend for etags."
+  t
+  nil)
+
+(register-definition-prefixes "company-etags" '("company-etags-"))
+
+;; files
+(autoload 'company-files "company-files"
+  "\"company-mode\" completion backend for existing file names."
+  t
+  nil)
+
+(register-definition-prefixes "company-files" '("company-file"))
+
+;; gtags
+(autoload 'company-gtags "company-gtags"
+  "\"company-mode\" completion backend for GNU Global."
+  t
+  nil)
+
+(register-definition-prefixes "company-gtags" '("company-gtags-"))
+
+;; ispell
+(autoload 'company-ispell "company-ispell"
+  "\"company-mode\" completion backend using Ispell."
+  t
+  nil)
+
+(register-definition-prefixes "company-ispell" '("company-ispell-"))
+
+;; keywords
+(autoload 'company-keywords "company-keywords"
+  "\"company-mode\" backend for programming language keywords."
+  t
+  nil)
+
+(register-definition-prefixes "company-keywords" '("company-keywords-"))
+
+;; nxml
+(autoload 'company-nxml "company-nxml"
+  "\"company-mode\" completion backend for \"nxml-mode\"."
+  t
+  nil)
+
+(register-definition-prefixes "company-nxml" '("company-nxml-"))
+
+;; oddmuse
+(autoload 'company-oddmuse "company-oddmuse"
+  "\"company-mode\" completion backend for \"oddmuse-mode\"."
+  t
+  nil)
+
+(register-definition-prefixes "company-oddmuse" '("company-oddmuse-"))
+
+;; semantic
+(autoload 'company-semantic "company-semantic"
+  "\"company-mode\" completion backend using CEDET Semantic."
+  t
+  nil)
+
+(register-definition-prefixes "company-semantic" '("company-semantic-"))
+
+;; tempo
+(autoload 'company-tempo "company-tempo"
+  "\"company-mode\" completion backend for tempo."
+  t
+  nil)
+
+(register-definition-prefixes "company-tempo" '("company-tempo-"))
+
+;; tng
+(autoload 'company-tng-frontend "company-tng"
+  "Auto populate current selection into buffer."
+  nil
+  nil)
+
+(autoload 'company-tng-configure-default "company-tng"
+  "Applies the default configuration to enable company-tng."
+  nil
+  nil)
+
+(register-definition-prefixes "company-tng" '("company-tng--"))
+
+;; xcode
+(autoload 'company-xcode "company-xcode"
+  "\"company-mode\" completion backend for Xcode projects."
+  t
+  nil)
+
+(register-definition-prefixes "company-xcode" '("company-xcode-"))
+
+(require 'company)
+
+;; mode for company-tng frontend
+(defvar company-tng-map
   (let ((keymap (make-sparse-keymap)))
-    (define-key keymap "\C-g" 'tcomplete-abort)
-    (define-key keymap (kbd "C-n") 'tcomplete-select-next-or-abort)
-    (define-key keymap (kbd "C-p") 'tcomplete-select-previous-or-abort)
-    (define-key keymap (kbd "<down>") 'tcomplete-select-next-or-abort)
-    (define-key keymap (kbd "<up>") 'tcomplete-select-previous-or-abort)
-    (define-key keymap [remap scroll-up-command] 'tcomplete-next-page)
-    (define-key keymap [remap scroll-down-command] 'tcomplete-previous-page)
-    (define-key keymap [return] 'tcomplete-complete-selection)
-    (define-key keymap (kbd "RET") 'tcomplete-complete-selection)
-    (define-key keymap [tab] 'tcomplete-complete-common)
-    (define-key keymap (kbd "TAB") 'tcomplete-complete-common)
-    (define-key keymap (kbd "<f1>") 'tcomplete-show-doc-buffer)
-    (define-key keymap (kbd "C-h") 'tcomplete-show-doc-buffer)
-    (define-key keymap "\C-s" 'tcomplete-search-candidates)
-    (define-key keymap "\C-\M-s" 'tcomplete-filter-candidates)
-    keymap)
-  "Keymap to enable during active completion.")
+    (set-keymap-parent keymap company-active-map)
+    (define-key keymap [return] nil)
+    (define-key keymap (kbd "RET") nil)
+    (define-key keymap [tab] 'company-select-next)
+    (define-key keymap (kbd "TAB") 'company-select-next)
+    (define-key keymap [backtab] 'company-select-previous)
+    (define-key keymap (kbd "S-TAB") 'company-select-previous)
+    keymap))
 
-(defvar tcomplete--disabled-backends nil)
-
-(defun tcomplete-init-backend (backend)
-  (when (and (symbolp backend)
-             (not (fboundp backend)))
-    (ignore-errors (require backend nil t)))
+(define-minor-mode company-tng-mode
+  "This minor mode enables `company-tng-frontend'."
+  :init-value nil
+  :global t
   (cond
-   ((symbolp backend)
-    (condition-case err
-        (progn
-          (funcall backend 'init)
-          (put backend 'tcomplete-init t))
-      (error
-       (put backend 'tcomplete-init 'failed)
-       (unless (memq backend tcomplete--disabled-backends)
-         (message "tcomplete backend '%s' could not be initialized:\n%s"
-                  backend (error-message-string err)))
-       (cl-pushnew backend tcomplete--disabled-backends)
-       nil)))
-   ;; don't initialize when it's a lambda
-   ((functionp backend) t)
-   ;; if it's not a symbol or function, assume list
+   (company-tng-mode
+    (setq company-frontends
+          (add-to-list 'company-frontends 'company-tng-frontend))
+    (setq company-frontends '(company-tng-frontend
+                              company-pseudo-tooltip-frontend
+                              company-echo-metadata-frontend))
+    (setq company-require-match nil
+          company-clang-insert-arguments nil
+          company-semantic-insert-arguments nil
+          company-rtags-insert-arguments nil
+          lsp-enable-snippet nil)
+    (setq company-active-map company-tng-map)
+    (setq company-selection-default nil))
    (t
-    (cl-dolist (b backend)
-      (unless (keywordp b)
-        (tcomplete-init-backend b))))))
+    (setq company-frontends
+          '(company-pseudo-tooltip-unless-just-one-frontend
+            company-preview-if-just-one-frontend
+            company-echo-metadata-frontend))
+    (setq company-require-match 'company-explicit-action-p
+          company-clang-insert-arguments t
+          company-semantic-insert-arguments t
+          company-rtags-insert-arguments t
+          lsp-enable-snippet t)
+    (setq company-active-map (keymap-parent company-tng-map))
+    (setq company-selection-default 0))))
 
-(defun tcomplete-backend-init-p (backend)
-  (if (symbolp backend)
-      (get backend 'tcomplete-init)
-    nil))
-
-(defun tcomplete-try-init-backend (backend)
-  (let ((backend-init (tcomplete-backend-init-p backend)))
-    (unless (or (eq t backend-init) backend-init)
-      (tcomplete-init-backend backend))))
-
-
-;; ===== modes =====
-
-;;;###autoload
-(define-minor-mode tcomplete-mode
-  "Mode for completing text in the buffer."
-  (if tcomplete-mode
-      (progn
-        (add-hook 'pre-command-hook 'tcomplete-pre-command nil t)
-        (add-hook 'post-command-hook 'tcomplete-post-command nil t)
-        (mapc 'tcomplete-init-backend tcomplete-backends))
-    (remove-hook 'pre-command-hook 'tcomplete-pre-command t)
-    (remove-hook 'post-command-hook 'tcomplete-post-command t)
-    (tcomplete-cancel)
-    (kill-local-variable 'tcomplete-point)))
-
-;;;###autoload
-(define-globalized-minor-mode global-tcomplete-mode tcomplete-mode tcomplete-mode-on)
-
-(defun tcomplete-mode-on ()
-  "Enable 'tcomplete-mode' for global mode."
-  (unless (or noninteractive
-              (eq (aref (buffer-name) 0) ?\s))
-    (tcomplete-mode 1)))
-
-;; ===== backends =====
-
-(defvar-local tcomplete-backend nil)
-
-(defun tcomplete-grab (regexp &optional expression limit)
-  (when (looking-back regexp limit)
-    (or (match-string-no-properties (or expression 0)) "")))
-
-(defun tcomplete-grab-line (regexp &optional expression)
-  "Return match string for 'regexp' if matched before point."
-  (let ((inhibit-field-text-motion t))
-    (tcomplete-grab regexp expression (line-beginning-position))))
-
-(defun tcomplete-grab-symbol ()
-  "Return symbol if point is at the end of it."
-  (if (looking-at "\\_>")
-      (buffer-substring
-       (point)
-       (save-excursion (skip-syntax-backward "w_") (point)))
-    (unless (and (char-after) (memq (char-syntax (char-after)) '(?w ?_)))
-      "")))
-
-(defun tcomplete-grab-word ()
-  "Return word if point is at the end of it."
-  (if (looking-at "\\>")
-      (buffer-substring
-       (point)
-       (save-excursion (skip-syntax-backward "w") (point)))
-    (unless (and (char-after) (eq (char-syntax (char-after)) ?w))
-      "")))
-
-(defun tcomplete-grab-symbol-cons (idle-begin-after-re &optional max-len)
-  "Return string SYMBOL or a cons (SYMBOL . t) if text before point matches IDLE-BEGIN-AFTER-RE."
-  (let ((symbol (tcomplete-grab-symbol)))
-    (when symbol
-      (save-excursion
-        (forward-char (- (length symbol)))
-        (let ((start-point (if max-len
-                               (- (point) max-len)
-                             (line-beginning-position))))
-          (if (looking-back idle-begin-after-re start-point)
-              (cons symbol t)
-            symbol))))))
-
-(defun tcomplete-in-string-or-comment ()
-  "Return non-nil if point is within a string or comment."
-  (let ((ppss (syntax-ppss)))
-    (or (car (setq ppss (nthcdr 3 ppss)))
-        (car (setq ppss (cdr ppss)))
-        (nth 3 ppss))))
-
-(defun tcomplete-call-backend (&rest args)
-  (tcomplete--force-sync #'tcomplete-call-backend-raw args tcomplete-backend))
-
-(defun tcomplete--force-sync (fun args backend)
-  (let ((value (apply fun args)))
-    (if (not (eq (car-safe value) :async))
-        value
-      (let ((res 'trash)
-            (start (time-to-seconds)))
-        (funcall (cdr value)
-                 (lambda (result) (setq res result)))
-        (while (eq res 'trash)
-          (if (> (- (time-to-seconds) start) tcomplete-async-timeout)
-              (error "tcomplete: backend %s async timeout with args %s"
-                     backend args)
-            (sleep-for tcomplete-async-wait)))
-        res))))
-
-(defun tcomplete-call-backend-raw (&rest args)
-  (condition-case-unless-debug err
-      (if (functionp tcomplete-backend)
-          (apply tcomplete-backend args)
-        (apply #'tcomplete--multi-backend-adapter tcomplete-backend args))
-    (user-error (user-error "tcomplete: backend %s user-error: %s"
-                            tcomplete-backend (error-message-string err)))
-    (error (error "tcomplete: backend %s error \"%s\" with args %s"
-                  tcomplete-backend (error-message-string err) args))))
-
-(defun tcomplete--multi-backend-adapter (backends command &rest args)
-  (let ((backends (cl-remove-if-not
-                   (lambda (b)
-                     (or (keywordp b)
-                         (tcomplete-try-init-backend b)))))
-        (separate (memq :separate backends)))
-    (cl-delete-if #'keywordp backends)
-    (pcase command
-      (`candidates
-       (tcomplete--multi-backend-adapter-candidates backends (car args) separate))
-      (`sorted separate)
-      (`duplicates (not separate))
-      ((or `prefix `ignore-case `no-cache `require-match)
-       (let (value)
-         (cl-dolist (backend backends)
-           (when (and
-                  (setq value
-                        (tcomplete--force-sync backend (cons command args) backend))
-                  (eq command 'ignore-case)
-                  (eq value 'keep-prefix))
-             (setq value t)))))
-      (_
-       (let ((arg (car args)))
-         (when (> (length arg) 0)
-           (let ((backend (or (get-text-property 0 'tcomplete-backend arg)
-                              (car backends))))
-             (apply backend command args))))))))
-
-(defun tcomplete--multi-backend-adapter-candidates (backends prefix separate)
-  (let ((pairs (mapcar
-                (lambda (backend)
-                  (cons (funcall backend 'candidates prefix)
-                        (tcomplete--multi-candidates-mapper
-                         backend
-                         separate
-                         (not (eq backend (car backends))))))
-                (cl-remove-if
-                 (lambda (backend)
-                   (equal (tcomplete--prefix-str
-                           (let ((tcomplete-backend backend))
-                             (tcomplete-call-backend 'prefix)))
-                          prefix))))))
-    (tcomplete--merge-async pairs (lambda (values) (apply #'append values)))))
-
-(defun tcomplete--multi-candidates-mapper (backend separate tag)
-  (lambda (candidates)
-    (when separate
-      (let ((tcomplete-backend backend))
-        (setq candidates (tcomplete--preprocess-candidates candidates))))
-    (when tag
-      (setq candidates
-            (mapcar
-             (lambda (str)
-               (propertize str 'tcomplete-backend backend))
-             candidates)))
-    candidates))
-
-(defun tcomplete--merge-async (pairs merger)
-  (let ((async (cl-find-if
-                (lambda (pair)
-                  (eq :async (car-safe (car pair))))
-                pairs)))
-    (if (not async)
-        (funcall merger (mapcar
-                         (lambda (pair)
-                           (funcall (cdr pair) (car pair)))
-                         pairs))
-      (cons :async
-            (lambda (callback)
-              (let (lst
-                    (pending (mapcar #'car pairs))
-                    (finisher (lambda ()
-                                (unless pending
-                                  (funcall callback
-                                           (funcall merger
-                                                    (nreverse lst)))))))
-                (dolist (pair pairs)
-                  (push nil lst)
-                  (let* ((cell lst)
-                         (val (car pair))
-                         (mapper (cdr pair))
-                         (this-finisher (lambda (res)
-                                          (setq pending (delq val pending))
-                                          (setcar cell (funcall mapper res))
-                                          (funcall finisher))))
-                    (if (not (eq :async (car-safe val)))
-                        (funcall this-finisher val)
-                      (let ((fetcher (cdr val)))
-                        (funcall fetcher this-finisher))))))))))
-
-(defun tcomplete--prefix-str (prefix)
-  (or (car-safe prefix) prefix))
-
-;; TODO: tcomplete--preprocess-candidates
-
-
-
-;; TODO: tcomplete-pre-command
-;; TODO: tcomplete-post-command
-
-;; TODO: tcomplete-cancel
-;; TODO: tcopmlete-abort
-
-;; TODO: tcomplete-select-next-or-abort
-;; TODO: tcomplete-select-previous-or-abort
-
-;; TODO: tcomplete-next-page
-;; TODO: tcomplete-previous-page
-
-;; TODO: tcomplete-complete-selection
-;; TODO: tcomplete-complete-common
-
-;; TODO: tcomplete-show-doc-buffer
-
-;; TODO: tcomplete-search-candidates
-;; TODO: tcomplete-filter-candidates
+(add-hook 'prog-mode-hook 'company-mode)
+(add-hook 'prog-mode-hook 'company-tng-mode)

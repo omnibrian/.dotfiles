@@ -1,9 +1,10 @@
 ;; -*- lexical-binding: t -*-
 
-(defconst dots--emacs-dir   (file-name-as-directory (expand-file-name user-emacs-directory)))
-(defconst dots--modules-dir (file-name-as-directory (concat dots--emacs-dir "modules")))
-(defconst dots--saves-dir   (file-name-as-directory (concat dots--emacs-dir "autosaves")))
-(defconst dots--repos-dir   (expand-file-name "~/git/"))
+(defconst dots--emacs-dir    (file-name-as-directory (expand-file-name user-emacs-directory)))
+(defconst dots--modules-dir  (file-name-as-directory (concat dots--emacs-dir "modules")))
+(defconst dots--packages-dir (file-name-as-directory (concat dots--emacs-dir "packages")))
+(defconst dots--saves-dir    (file-name-as-directory (concat dots--emacs-dir "autosaves")))
+(defconst dots--repos-dir    (expand-file-name "~/git/"))
 
 (setf
  ;; automatically follow symlinks when file is in version control
@@ -14,6 +15,8 @@
  custom-file            (concat dots--emacs-dir "custom.el")
  ;; point to dotfiles theme dir
  custom-theme-directory (concat dots--emacs-dir "themes")
+ ;; point to packages dir in dotfiles
+ package-user-dir       dots--packages-dir
  ;; don't prompt to load newer
  load-prefer-newer      noninteractive
  ;; dump backup files into saves dir instead

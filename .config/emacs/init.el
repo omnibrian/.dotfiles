@@ -1,4 +1,4 @@
-;; -*- lexical binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (defconst start-time (float-time))
 
@@ -7,7 +7,7 @@
 (dots--load "whitespace")
 (dots--load "window-switching")
 (dots--load "input-completion")
-;(dots--load "text-completion")
 (dots--load "term-toggle")
+(dots--load "text-completion")
 
 (message "Config loaded in %ss" (- (float-time) start-time))

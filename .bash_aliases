@@ -86,7 +86,14 @@ extract() {
 }
 
 shrink-path() {
-	echo ${PWD/#$HOME/\~} | awk -F/ '{ for(i=1; i<=NF-1; i++) { printf substr($i,1,1) "/" } printf $NF }'
+	echo ${PWD/#$HOME/\~} | awk -F/ '{
+    for(i=1; i<=NF-1; i++) {
+      printf substr($i, 1, 1)
+      if (substr($i, 1, 1) == ".") printf substr($i, 2, 1)
+      printf "/"
+    }
+    printf $NF
+  }'
 }
 
 git-branch() {

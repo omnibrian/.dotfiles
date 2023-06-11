@@ -8,5 +8,8 @@
 !.ssh/config.d/main
 !.ssh/config.d/aws
 
+# emacs
+.config/emacs/session.*
+
 # macos
 .DS_Store
