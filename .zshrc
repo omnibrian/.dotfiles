@@ -91,7 +91,6 @@ sourceif() {
 sourceif /etc/zshrc
 sourceif $HOME/.env
 sourceif $HOME/.bash_aliases
-sourceif $HOME/.fzf.zsh
 sourceif $HOME/.docker/init-zsh.sh || true
 # ================ common-files =======================================
 
@@ -256,8 +255,8 @@ PS3='#? '
 PS4='+%N:%i>'
 
 # right-side prompt
-RPS1='%{$fg[red]%}$(git-dirty)%{$fg[blue]%}$(git-branch)%{$fg[white]%}[%D{%H:%M}]%{%b%}'
+RPS1='%{$fg[red]%}$(git-dirty)%{$fg[yellow]%}$(git-stashed)%{$fg[blue]%}$(git-branch)%{$fg[white]%}[%D{%H:%M}]%{%b%}'
 
 # main prompt
-PROMPT='%{$fg[yellow]%}[$(shrink-path)% ]%(?.%{$fg[green]%}.%{$fg[red]%})%B%(!.#.$)%b '
+PROMPT='%{$fg[yellow]%}[$(shrink-path)% ]%(?.%{$fg[green]%}.%{$fg[red]%})%B%(!.#.$)%b%{$reset_color%} '
 # ================ prompt =============================================

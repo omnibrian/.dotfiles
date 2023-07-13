@@ -4,6 +4,7 @@ session.*
 auto-save-list/
 elpa/
 elpy/
+eln-cache/
 tutorial/
 transient/
 straight/

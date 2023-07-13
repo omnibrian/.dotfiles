@@ -47,8 +47,8 @@
 
 ;; window decorations
 (menu-bar-mode -1)
-(tool-bar-mode -1)
-(toggle-scroll-bar -1)
+;(tool-bar-mode -1)
+;(toggle-scroll-bar -1)
 
 ;; don't need to here any bell sounds, so flash mode line instead
 ;; https://www.emacswiki.org/emacs/AlarmBell
@@ -80,14 +80,14 @@
 
 ;; electric-indent-mode doesn't work with python-mode
 (add-hook 'electric-indent-functions
-          '(lambda (char)
+          #'(lambda (_char)
              (if (equal major-mode 'python-mode)
                  'no-indent
                nil)))
 
 ;; enter key executes newline-and-indent
 (add-hook 'python-mode-hook
-          '(lambda ()
+          #'(lambda ()
              (local-set-key (kbd "RET") 'newline-and-indent)))
 
 (add-hook 'write-file-functions 'delete-trailing-whitespace)

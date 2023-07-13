@@ -6,9 +6,11 @@
 # ================ exports ============================================
 export VISUAL=${VISUAL:-vim}
 export EDITOR=${EDITOR:-vim}
+export TERMINFO_DIRS=${TERMINFO_DIRS}:${HOME}/.local/share/terminfo
 export PAGER=${PAGER:-less -R}
 export SYSTEMD_PAGER=  # disable systemctl's auto-paging
 export AWS_PAGER=      # disable awscli auto-paging
+export PYTHONUSERBASE=~/.local
 
 addpath() {
 	if ! [[ "$PATH" =~ "$1" ]] ; then
@@ -52,6 +54,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+alias python='python3'
 alias pip='python -m pip'
 alias _='sudo'
 alias emac='emacsclient -nw -c'
@@ -86,6 +89,10 @@ extract() {
 	fi
 }
 
+saml-decode() {
+	python3 -c 'import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));' | base64 --decode | xmllint --format -
+}
+
 shrink-path() {
 	echo "${PWD/#$HOME/~}" | awk -F/ '{ for(i=1; i<=NF-1; i++) { printf substr($i,1,1) "/" } printf $NF }'
 }
@@ -100,6 +107,13 @@ git-branch() {
 	echo "[${git_branch}]"
 }
 
+git-stashed() {
+	type git &>/dev/null || return
+
+	[[ -n "$(git stash list 2>/dev/null)" ]] || return
+	echo '-'
+}
+
 git-dirty() {
 	type git &>/dev/null || return
 	[[ -n "$(git status --porcelain 2>/dev/null)" ]] || return
@@ -107,16 +121,16 @@ git-dirty() {
 }
 
 newdev() {
-  destination=$(cd "${1:-$(pwd)}" || (echo "ERROR: could not 'cd ${1}'"; return); pwd)
-  name=${2:-$(basename "${destination}")}
+	destination=$(cd "${1:-$(pwd)}" || (echo "ERROR: could not 'cd ${1}'"; return); pwd)
+	name=${2:-$(basename "${destination}")}
 
-  # append number if there's going to be a naming collision
-  existing_panes=$(tmux list-windows -F '#W' | grep -c "${name}")
-  if [[ ${existing_panes} -ne 0 ]]; then
-    name="${name}$((existing_panes + 1))"
-  fi
+	# append number if there's going to be a naming collision
+	existing_panes=$(tmux list-windows -F '#W' | grep -c "${name}\$")
+	if [[ ${existing_panes} -ne 0 ]]; then
+		name="${name}$((existing_panes + 1))"
+	fi
 
-  tmux new-window -n "${name}" -c "${destination}" -d 'emacs -nw'
-  tmux split-window -v -t "${name}" -c "${destination}" -l 20 -d
+	tmux new-window -n "${name}" -c "${destination}" -d 'emacs -nw'
+	tmux split-window -v -t "${name}" -c "${destination}" -l 20 -d
 }
 # ================ utilities ==========================================
