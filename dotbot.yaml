@@ -6,6 +6,7 @@
 - link:
     ~/Library/Preferences/com.googlecode.iterm2.plist:
       path: Library/Preferences/com.googlecode.iterm2.plist
+      force: true
       if: '[[ `uname -o` == "Darwin" ]]'
     ~/.local/bin/aws-ansible: bin/aws/ansible.sh
     ~/.local/bin/aws-assume: bin/aws/assume.sh
@@ -35,7 +36,8 @@
     ~/.config/yabai/yabairc: .config/yabai/yabairc
     ~/.dircolors: .dircolors
     ~/.dircolors.256color: .dircolors.256color
-    ~/.emacs.d: .emacs.d
+    # ~/.emacs.d: .emacs.d
+    ~/.emacs.d: .config/emacs
     ~/.gitignore: .gitignore
     ~/.ssh/config: .ssh/config
     ~/.ssh/config.d: .ssh/config.d
