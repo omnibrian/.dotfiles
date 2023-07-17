@@ -449,6 +449,12 @@
   :hook
   ((sh-mode . flymake-shellcheck-load)))
 
+;; dockerfile-mode -- github.com/spotify/dockerfile-mode
+(use-package dockerfile-mode
+  :straight t
+  :defer 0.2
+  :mode ("Dockerfile" . dockerfile-mode))
+
 ;; TODO: go-mode -- github.com/dominikh/go-mode.el
 ;; ================ packages ===========================================
 
