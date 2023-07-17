@@ -7,9 +7,8 @@
  company-minimum-prefix-length 1)
 
 ;; add company-mode folder to load path
-(add-to-list 'load-path (concat dots--modules-dir "company-mode"))
+(add-to-list 'load-path (concat dots--packages-dir "company-mode"))
 
-;; --- autoload ---
 ;; modes
 (autoload 'company-mode "company"
   "\"complete anything\""

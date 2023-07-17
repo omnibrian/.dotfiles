@@ -4,7 +4,8 @@
 (defconst dots--modules-dir  (file-name-as-directory (concat dots--emacs-dir "modules")))
 (defconst dots--packages-dir (file-name-as-directory (concat dots--emacs-dir "packages")))
 (defconst dots--saves-dir    (file-name-as-directory (concat dots--emacs-dir "autosaves")))
-(defconst dots--repos-dir    (expand-file-name "~/git/"))
+(defconst dots--repos-dir    (expand-file-name "~/git"))
+(defconst dots--dotfiles-dir (expand-file-name "~/.dotfiles"))
 
 (setf
  ;; automatically follow symlinks when file is in version control
@@ -21,6 +22,9 @@
  load-prefer-newer      noninteractive
  ;; dump backup files into saves dir instead
  backup-directory-alist `(("." . ,dots--saves-dir)))
+
+;; automatically load packages from packages-dir
+(add-to-list 'load-path dots--packages-dir)
 
 ;; aint nobody got time for 'yes' when a simple 'y' will do
 (defalias 'yes-or-no-p 'y-or-n-p)

@@ -2,6 +2,7 @@
 .vscode/
 *.sw[o-z]
 *~
+TAGS
 
 # ssh
 .ssh/config.d/*
