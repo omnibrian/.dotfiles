@@ -11,8 +11,9 @@
 (dots--load "term-toggle")
 (dots--load "text-completion")
 (dots--load "file-management")
-(dots--load "dockerfile")
 (dots--load "linting")
+(dots--load "yaml")
+(dots--load "docker")
 (dots--load "typescript")
 
 (message "Config loaded in %ss" (- (float-time) start-time))

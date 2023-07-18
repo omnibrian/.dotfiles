@@ -246,3 +246,6 @@ returned, otherwise the base image name is used."
 (add-to-list 'auto-mode-alist '("\\.dockerfile\\'" . dockerfile-mode))
 
 (provide 'dockerfile-mode)
+
+
+(add-hook 'dockerfile-mode-hook 'highlight-indentation-mode)
