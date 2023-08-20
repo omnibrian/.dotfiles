@@ -54,7 +54,7 @@
 (global-display-fill-column-indicator-mode 1)
 
 ;; TODO: set fill-column based on major-mode
-(setq display-fill-column-indicator-column 80)
+(setq display-fill-column-indicator-column 100)
 
 ;; ===== visual bell =====
 ;; flash mode line instead of ringing bell

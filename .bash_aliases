@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 # .bash_aliases
 #
 # Note: this file is meant to be sourced in bash and zsh
@@ -128,16 +129,22 @@ git-dirty() {
 }
 
 newdev() {
-	destination=$(cd "${1:-$(pwd)}" || (echo "ERROR: could not 'cd ${1}'"; return); pwd)
-	name=${2:-$(basename "${destination}")}
+	destination=$(cd "${1:-$(pwd)}" && pwd)
+  if [ ! -d "${destination}" ]; then
+    echo "ERROR: '${1:-$(pwd)}' is not a directory that exists"
+    return
+  fi
+
+	basename=${2:-$(basename "${destination}")}
+  panename=${basename#.}
 
 	# append number if there's going to be a naming collision
-	existing_panes=$(tmux list-windows -F '#W' | grep -c "${name}\$")
+	existing_panes=$(tmux list-windows -F '#W' | grep -c "${panename}\$")
 	if [[ ${existing_panes} -ne 0 ]]; then
-		name="${name}$((existing_panes + 1))"
+		name="${panename}$((existing_panes + 1))"
 	fi
 
-	tmux new-window -n "${name}" -c "${destination}" -d 'emacs -nw'
-	tmux split-window -v -t "${name}" -c "${destination}" -l 20 -d
+	tmux new-window -n "${panename}" -c "${destination}" -d 'emacs -nw'
+	tmux split-window -v -t "${panename}" -c "${destination}" -l 20 -d
 }
 # ================ utilities ==========================================
