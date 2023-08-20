@@ -11,37 +11,50 @@
 
 (setq show-paren-style 'parenthesis)
 
-;; ===== linum =====
-;; always show line numbers
-(global-linum-mode 1)
+;; ===== line-numbers =====
+(if (version<= "26.0.50" emacs-version)
+    ;; if new emacs: use display-line-numbers
+    (progn
+      (global-display-line-numbers-mode)
+      (setq display-line-numbers-type 'visual))
 
-(defface linum-current-line-face
-  `((t
-     :inherit linum
-     :foreground "goldenrod"
-     :weight bold))
-  "Face for highlighting the current line number."
-  :group 'linum)
+  ;; else: use linum
+  (progn
+    (global-linum-mode 1)
 
-(defvar linum-current-line 1 "Current line number.")
-(defvar linum-border-width 1 "Border width for linum display.")
+    (defface linum-current-line-face
+      `((t
+         :inherit linum
+         :foreground "goldenrod"
+         :weight bold))
+      "Face for highlighting the current line number."
+      :group 'linum)
 
-(defadvice linum-update (before advice-linum-update activate)
-  "Get the last position of linum and set border width."
-  (let* ((max-line-number  (count-lines (point-min) (point-max)))
-         (base-linum-width (length (number-to-string max-line-number))))
-    (setq linum-border-width (number-to-string (+ 1 base-linum-width))
-          linum-current-line (line-number-at-pos))))
+    (defvar linum-current-line 1 "Current line number.")
+    (defvar linum-border-width 1 "Border width for linum display.")
 
-(defun linum-relative (line-number)
-  "Helper for relative line numbers.  LINE-NUMBER is current line number."
-  (let* ((diff        (abs (- line-number linum-current-line)))
-	       (line-number (if (= diff 0) line-number diff))
-	       (face        (if (= diff 0) 'linum-current-line-face 'linum)))
-    (propertize (format (concat "%" linum-border-width "d ") line-number)
-		            'face face)))
+    (defadvice linum-update (before advice-linum-update activate)
+      "Get the last position of linum and set border width."
+      (let* ((max-line-number  (count-lines (point-min) (point-max)))
+             (base-linum-width (length (number-to-string max-line-number))))
+        (setq linum-border-width (number-to-string (+ 1 base-linum-width))
+              linum-current-line (line-number-at-pos))))
 
-(setq linum-format 'linum-relative)
+    (defun linum-relative (line-number)
+      "Helper for relative line numbers.  LINE-NUMBER is current line number."
+      (let* ((diff        (abs (- line-number linum-current-line)))
+	           (line-number (if (= diff 0) line-number diff))
+	           (face        (if (= diff 0) 'linum-current-line-face 'linum)))
+        (propertize (format (concat "%" linum-border-width "d ") line-number)
+		                'face face)))
+
+    (setq linum-format 'linum-relative)))
+
+;; ===== fill column =====
+(global-display-fill-column-indicator-mode 1)
+
+;; TODO: set fill-column based on major-mode
+(setq display-fill-column-indicator-column 80)
 
 ;; ===== visual bell =====
 ;; flash mode line instead of ringing bell
