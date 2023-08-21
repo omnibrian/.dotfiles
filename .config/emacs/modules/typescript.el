@@ -47,5 +47,5 @@
 (flycheck-add-mode 'javascript-eslint 'web-mode)
 
 ;; enable highlight-indentation
-(add-hook 'web-mode-hook 'highlight-indentation-mode)
-(add-hook 'tide-mode-hook 'highlight-indentation-mode)
+;(add-hook 'web-mode-hook 'highlight-indentation-mode)
+;(add-hook 'tide-mode-hook 'highlight-indentation-mode)
