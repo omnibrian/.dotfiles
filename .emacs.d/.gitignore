@@ -1,18 +1,13 @@
 *.cache
 session.*
-
-auto-save-list/
-elpa/
-elpy/
-eln-cache/
-tutorial/
-transient/
-straight/
-
-.lsp-session-v1
 projectile-bookmarks.eld
-projects
 recentf
 \#recentf\#
 
-!straight/repos/straight.el
+auto-save-list/
+autosaves/
+elpa/
+eln-cache/
+tutorial/
+transient/
+custom.el

@@ -36,8 +36,7 @@
     ~/.config/yabai/yabairc: .config/yabai/yabairc
     ~/.dircolors: .dircolors
     ~/.dircolors.256color: .dircolors.256color
-    # ~/.emacs.d: .emacs.d
-    ~/.emacs.d: .config/emacs
+    ~/.emacs.d: .emacs.d
     ~/.gitignore: .gitignore
     ~/.ssh/config: .ssh/config
     ~/.ssh/config.d: .ssh/config.d

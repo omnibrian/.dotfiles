@@ -11,3 +11,6 @@ TAGS
 
 # macos
 .DS_Store
+
+# old .emacs.d files
+.emacs.d.bak/
