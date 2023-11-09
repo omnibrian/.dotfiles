@@ -94,7 +94,7 @@ fi
 instance_id=$(\
   aws ${aws_params} ec2 describe-instances \
   --filter "Name=tag:Name,Values=${instance_name}" Name=instance-state-name,Values=running \
-  --query 'Reservations[].Instances[0].InstanceId')
+  --query 'Reservations[0].Instances[0].InstanceId')
 
 if [[ -z "${instance_id}" ]]; then
   die "No instances found with name '${instance_name}'"
