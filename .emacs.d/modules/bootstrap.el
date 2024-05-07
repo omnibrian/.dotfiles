@@ -29,6 +29,9 @@
 ;; aint nobody got time for 'yes' when a simple 'y' will do
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; suppress downcase-region warning
+(put 'downcase-region 'disabled nil)
+
 
 (eval-when-compile (require 'cl-lib))
 

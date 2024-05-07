@@ -16,5 +16,6 @@
 (dots--load "docker")
 (dots--load "typescript")
 (dots--load "rust")
+(dots--load "terraform")
 
 (message "Config loaded in %ss" (- (float-time) start-time))

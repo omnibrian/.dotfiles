@@ -20,6 +20,7 @@ addpath() {
 }
 
 addpath "$HOME/.local/bin"
+addpath "$HOME/.docker/bin"
 addpath "$HOME/bin"
 addpath "$HOME/go/bin"
 addpath "$HOME/.cargo/bin"
@@ -64,6 +65,7 @@ alias k='kubectl'
 alias kc='kubectx'
 alias kn='kubens'
 alias makepkginfo='python3 ~/git/munki/code/client/makepkginfo'
+alias tf='terraform'
 # ================ aliases ============================================
 
 

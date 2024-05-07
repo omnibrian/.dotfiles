@@ -75,13 +75,13 @@ cmd + alt - a : yabai -m space --toggle padding; yabai -m space --toggle gap
 cmd + alt - d : yabai -m window --toggle zoom-parent
 
 # toggle window fullscreen zoom
-ctrl + alt - f : yabai -m window --toggle zoom-fullscreen
+cmd + alt - f : yabai -m window --toggle zoom-fullscreen
 
 # toggle window borders
 cmd + alt - b : yabai -m window --toggle border
 
 # toggle window split type
-ctrl + alt -e : yabai -m window --toggle split
+ctrl + alt - e : yabai -m window --toggle split
 
 # float / unfloat window
 ctrl - space : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
