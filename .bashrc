@@ -1,3 +1,4 @@
+# -*- mode: sh; indent-tabs-mode: t; -*-
 # .bashrc
 
 # ================ common-files =======================================

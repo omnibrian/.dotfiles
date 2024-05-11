@@ -1,4 +1,4 @@
-# -*- mode: sh -*-
+# -*- mode: sh; indent-tabs-mode: t; -*-
 # .bash_aliases
 #
 # Note: this file is meant to be sourced in bash and zsh
@@ -9,8 +9,8 @@ export VISUAL=${VISUAL:-vim}
 export EDITOR=${EDITOR:-vim}
 export TERMINFO_DIRS=${TERMINFO_DIRS}:${HOME}/.local/share/terminfo
 export PAGER=${PAGER:-less -R}
-export SYSTEMD_PAGER=  # disable systemctl's auto-paging
-export AWS_PAGER=      # disable awscli auto-paging
+export SYSTEMD_PAGER=           # disable systemctl's auto-paging
+export AWS_PAGER=               # disable awscli auto-paging
 export PYTHONUSERBASE=~/.local
 
 addpath() {
@@ -133,13 +133,13 @@ git-dirty() {
 
 newdev() {
 	destination=$(cd "${1:-$(pwd)}" && pwd)
-  if [ ! -d "${destination}" ]; then
-    echo "ERROR: '${1:-$(pwd)}' is not a directory that exists"
-    return
-  fi
+	if [ ! -d "${destination}" ]; then
+		echo "ERROR: '${1:-$(pwd)}' is not a directory that exists"
+		return
+	fi
 
 	basename=${2:-$(basename "${destination}")}
-  panename=${basename#.}
+	panename=${basename#.}
 
 	# append number if there's going to be a naming collision
 	existing_panes=$(tmux list-windows -F '#W' | grep -c "${panename}\$")
