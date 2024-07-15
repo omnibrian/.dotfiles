@@ -108,6 +108,14 @@ shrink-path() {
 	}'
 }
 
+aws-profile() {
+	if [[ -n "${AWS_PROFILE}" ]]; then
+		echo "(AWS:${AWS_PROFILE})"
+	elif [[ -n "${AWS_SECRET_ACCESS_KEY}" ]]; then
+		echo "(AWS:temp)"
+	fi
+}
+
 git-branch() {
 	type git &>/dev/null || return
 

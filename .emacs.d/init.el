@@ -17,5 +17,7 @@
 (dots--load "typescript")
 (dots--load "rust")
 (dots--load "terraform")
+(dots--load "go")
 
 (message "Config loaded in %ss" (- (float-time) start-time))
+(put 'upcase-region 'disabled nil)

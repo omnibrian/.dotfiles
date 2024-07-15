@@ -34,9 +34,11 @@ bash-prompt() {
 	PSGITBRANCH="\[\e[34m\]$(git-branch)\[\e[0m\]"
 	PSGITSTASHED="\[\e[33m\]$(git-stashed)\[\e[0m\]"
 	PSGITDIRTY="\[\e[31m\]$(git-dirty)\[\e[0m\]"
+	PSAWSPROFILE="\[\e[35m\]$(aws-profile)\[\e[0m\]"
 	PSPROMPT="\[\e[32m\]$([[ ${rc} -eq 0 ]] || echo '\[\e[31m\]')\$\[\e[0m\]"
-	PS1="${PSTIME}${PSPATH}${PSGITBRANCH}${PSGITSTASHED}${PSGITDIRTY}${PSPROMPT} "
+	PS1="${PSTIME}${PSAWSPROFILE}${PSPATH}${PSGITBRANCH}${PSGITSTASHED}${PSGITDIRTY}${PSPROMPT} "
 }
 
 PROMPT_COMMAND=bash-prompt
 # ================ prompt =============================================
+. "$HOME/.cargo/env"

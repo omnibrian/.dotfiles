@@ -226,27 +226,6 @@ fi
 # run functions based on a hook
 autoload -Uz add-zsh-hook
 
-# update guake title but in a background job since the guake call is
-# slow but also stuff it into a subprocess with hidden output to avoid
-# background job logs showing up in foreground
-guake-retitle() {
-	if [[ -n "${GUAKE_TAB_UUID}" ]] ; then
-		if [[ -n "$1" ]] && ! [[ "$1" =~ "^cd" ]] ; then
-			(&>/dev/null guake -r "$1" &)
-		else
-			(&>/dev/null guake -r "$(shrink-path)" &)
-		fi
-	fi
-}
-# retitle to running command
-add-zsh-hook preexec guake-retitle
-guake-retitle  # retitle to pwd on start
-
-# retitle to pwd when printing prompt
-precmd() {
-	guake-retitle
-}
-
 # load colors for prompt
 autoload -Uz colors
 colors
@@ -261,7 +240,7 @@ PS3='#? '
 PS4='+%N:%i>'
 
 # right-side prompt
-RPS1='%{$fg[red]%}$(git-dirty)%{$fg[yellow]%}$(git-stashed)%{$fg[blue]%}$(git-branch)%{$fg[white]%}[%D{%H:%M}]%{%b%}'
+RPS1='%{$fg[cyan]%}$(aws-profile)%{$fg[red]%}$(git-dirty)%{$fg[yellow]%}$(git-stashed)%{$fg[blue]%}$(git-branch)%{$fg[white]%}[%D{%H:%M}]%{%b%}'
 
 # main prompt
 PROMPT='%{$fg[yellow]%}[$(shrink-path)% ]%(?.%{$fg[green]%}.%{$fg[red]%})%B%(!.#.$)%b%{$reset_color%} '
