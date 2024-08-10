@@ -12,6 +12,7 @@
 (dots--load "text-completion")
 (dots--load "file-management")
 (dots--load "linting")
+(dots--load "markdown")
 (dots--load "yaml")
 (dots--load "docker")
 (dots--load "typescript")
