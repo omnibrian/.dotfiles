@@ -3525,7 +3525,7 @@ Broadcast Input.Broadcast Input to All Panes in Current Tab</string>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>TabStyle</key>

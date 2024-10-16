@@ -6,7 +6,7 @@ set -euo pipefail
 
 usage() {
   cat <<EOF
-Usage: aws-instances [-h | --help] [--profile <profile>] [--region <region>] [--output <output>]
+Usage: aws-instances [-h | --help] [--profile <profile>] [--region <region>] [--output <output>] [-n <name> | --name <name>]
 
 List EC2 instance names and instance IDs.
 
@@ -15,6 +15,7 @@ Available options:
   -p, --profile     AWS profile to load
   -r, --region      AWS region to use
   -o, --output      Output type to use from aws cli (default: table)
+  -n, --name        Filter output to only instances with an exactly matching Name tag
 EOF
 }
 
@@ -29,6 +30,7 @@ die() {
 
 parse_params() {
   aws_params=""
+  aws_command_params=""
   local output="table"
 
   while : ; do
@@ -49,6 +51,10 @@ parse_params() {
         output="${2-}"
         shift
         ;;
+      -n | --name)
+        aws_command_params+=" --filters Name=tag:Name,Values=${2-}"
+        shift
+        ;;
       -?*)
         usage
         die "\nUnknown option: $1"
@@ -65,4 +71,4 @@ parse_params() {
 parse_params "$@"
 
 aws ${aws_params} ec2 describe-instances \
-  --query 'Reservations[].Instances[].{Name:Tags[?Key==`Name`]|[0].Value,InstanceId:InstanceId,IP:PrivateIpAddress,State:State.Name}'
+  --query 'Reservations[].Instances[].{Name:Tags[?Key==`Name`]|[0].Value,InstanceId:InstanceId,IP:PrivateIpAddress,State:State.Name}' ${aws_command_params}
