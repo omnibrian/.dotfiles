@@ -41,4 +41,3 @@ bash-prompt() {
 
 PROMPT_COMMAND=bash-prompt
 # ================ prompt =============================================
-. "$HOME/.cargo/env"

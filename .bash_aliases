@@ -19,6 +19,12 @@ addpath() {
 	fi
 }
 
+if [[ -f "$HOME/.paths" ]] ; then
+	cat "$HOME/.paths" | grep -vE '^(#.*)?$' | envsubst | while read -r localpath ; do
+		addpath "${localpath}"
+	done
+fi
+
 addpath "$HOME/.local/bin"
 addpath "$HOME/.docker/bin"
 addpath "$HOME/bin"
@@ -38,6 +44,13 @@ fi
 if [[ -n "$COLORS" ]] && command -v dircolors &>/dev/null; then
 	eval "$(dircolors --sh "$COLORS")"
 fi
+
+# workaround macos python not using system ssl CA certs
+SSL_CERT_FILE=/etc/ssl/cert.pem
+if [[ -f "${SSL_CERT_FILE}" ]] ; then
+	export SSL_CERT_FILE="${SSL_CERT_FILE}"
+	export REQUESTS_CA_BUNDLE="${SSL_CERT_FILE}"
+fi
 # ================ exports ============================================
 
 
@@ -46,10 +59,13 @@ alias ls='ls --color=auto'
 alias ll='ls -lB'
 alias la='ls -la'
 alias l='ls -lah'
+
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+
 alias g='git'
+
 alias cdd='cd $HOME/Downloads'
 alias cdg='cd $HOME/git'
 alias ..='cd ..'
@@ -57,14 +73,22 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
+
 alias python='python3'
 alias pip='python -m pip'
 alias _='sudo'
+
 alias emac='emacsclient -nw -c'
-alias k='kubectl'
+
+if command -v tsh &>/dev/null ; then
+	alias k='tsh kubectl'
+else
+	alias k='kubectl'
+fi
+
 alias kc='kubectx'
 alias kn='kubens'
-alias makepkginfo='python3 ~/git/munki/code/client/makepkginfo'
+
 alias tf='terraform'
 # ================ aliases ============================================
 
