@@ -71,4 +71,4 @@ parse_params() {
 parse_params "$@"
 
 aws ${aws_params} ec2 describe-instances \
-  --query 'Reservations[].Instances[].{Name:Tags[?Key==`Name`]|[0].Value,InstanceId:InstanceId,IP:PrivateIpAddress,State:State.Name}' ${aws_command_params}
+  --query 'Reservations[].Instances[].{Name:Tags[?Key==`Name`]|[0].Value,InstanceId:InstanceId,IP:PrivateIpAddress,State:State.Name,Launch:LaunchTime,Type:InstanceType}' ${aws_command_params}
