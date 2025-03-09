@@ -97,6 +97,17 @@ sourceif $HOME/.docker/init-zsh.sh || true
 
 
 # ================ completion =========================================
+# add user local fpath for user-installed tools or tools IT installed
+# but decided to be too cool to also install the completions
+addfpath() {
+	if ! [[ "$FPATH" =~ "$1" ]] ; then
+		export FPATH="$1:$FPATH"
+	fi
+}
+
+addfpath "$HOME/.local/share/zsh/functions"
+
+
 # allow one error every three characters typed in approximate completer
 zstyle ':completion:*:approximate:' max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
 
