@@ -66,7 +66,7 @@ else
 	@echo
 endif
 
-install: dotbot fzf git npm vscode
+install: dotbot fzf git npm
 	@echo "\033[0;32m>> configuration has been installed\033[0m"
 	@echo
 	@echo ">> Guake configuration loading was skipped, to run manually:"
