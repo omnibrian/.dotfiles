@@ -27,7 +27,8 @@
 (add-to-list 'load-path dots--packages-dir)
 
 ;; aint nobody got time for 'yes' when a simple 'y' will do
-(defalias 'yes-or-no-p 'y-or-n-p)
+;;(defalias 'yes-or-no-p 'y-or-n-p)
+(setopt use-short-answers t)
 
 ;; suppress downcase-region warning
 (put 'downcase-region 'disabled nil)

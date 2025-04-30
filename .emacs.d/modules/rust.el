@@ -3,7 +3,8 @@
 ;; github.com/rust-lang/rust-mode
 
 (setq
- rust-format-on-save t)
+ rust-format-on-save t
+ rust-mode-treesitter-derive t)
 
 ;; add rust-mode folder to load path
 (add-to-list 'load-path (concat dots--packages-dir "rust-mode"))
