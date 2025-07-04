@@ -17,6 +17,7 @@
     ~/.local/bin/aws-ssh: bin/aws/ssh.sh
     ~/.local/bin/aws-users: bin/aws/users.py
     ~/.local/bin/git-abort: bin/git/abort.sh
+    ~/.local/bin/git-continue: bin/git/continue.sh
     ~/.local/bin/i3lock-launch: bin/i3lock/launch.sh
     ~/.local/bin/kubectl-eks: bin/kubectl/eks.sh
     ~/.local/bin/kubectl-kdiff: bin/kubectl/kdiff.sh
