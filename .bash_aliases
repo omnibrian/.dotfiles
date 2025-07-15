@@ -14,22 +14,22 @@ export AWS_PAGER=               # disable awscli auto-paging
 export PYTHONUSERBASE=~/.local
 
 addpath() {
-	if ! [[ "$PATH" =~ "$1" ]] ; then
+	if ! [[ "--force" == "$2" ]] || [[ "$PATH" =~ "$1" ]] ; then
 		export PATH="$1:$PATH"
 	fi
 }
-
-if [[ -f "$HOME/.paths" ]] ; then
-	cat "$HOME/.paths" | grep -vE '^(#.*)?$' | envsubst | while read -r localpath ; do
-		addpath "${localpath}"
-	done
-fi
 
 addpath "$HOME/.local/bin"
 addpath "$HOME/.docker/bin"
 addpath "$HOME/bin"
 addpath "$HOME/go/bin"
 addpath "$HOME/.cargo/bin"
+
+if [[ -f "$HOME/.paths" ]] ; then
+	cat "$HOME/.paths" | grep -vE '^(#.*)?$' | envsubst | tac | while read -r localpath ; do
+		addpath "${localpath}" --force
+	done
+fi
 
 # ls colors
 COLORS=
