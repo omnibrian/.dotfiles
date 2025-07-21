@@ -1,5 +1,5 @@
 # open terminal
-cmd - return : osascript -e 'if application "iTerm" is running then' -e 'tell application "iTerm" to create window with default profile' -e 'else' -e 'activate application "iTerm"' -e 'end if'
+alt - return : osascript -e 'if application "iTerm" is running then' -e 'tell application "iTerm" to create window with default profile' -e 'else' -e 'activate application "iTerm"' -e 'end if'
 
 # focus window
 alt - h : yabai -m window --focus west
