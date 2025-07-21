@@ -4,10 +4,10 @@
       relink: true
 
 - link:
-    ~/Library/Preferences/com.googlecode.iterm2.plist:
-      path: Library/Preferences/com.googlecode.iterm2.plist
-      force: true
-      if: '[[ `uname -o` == "Darwin" ]]'
+  # ~/Library/Preferences/com.googlecode.iterm2.plist:
+  #   path: Library/Preferences/com.googlecode.iterm2.plist
+  #   force: true
+  #   if: '[[ `uname -o` == "Darwin" ]]'
     ~/.local/bin/aws-ansible: bin/aws/ansible.sh
     ~/.local/bin/aws-assume: bin/aws/assume.sh
     ~/.local/bin/aws-audit: bin/aws/audit.py
