@@ -34,5 +34,6 @@
 	unmerged = !git ls-files --unmerged --format \"%(path)\" | sort -u
 [core]
 	excludesFile = ~/.gitignore
+	commentchar = %
 [init]
 	defaultBranch = main
