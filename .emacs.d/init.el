@@ -19,6 +19,7 @@
 (dots--load "rust")
 (dots--load "terraform")
 (dots--load "go")
+(dots--load "jsonnet")
 
 (message "Config loaded in %ss" (- (float-time) start-time))
 (put 'upcase-region 'disabled nil)
