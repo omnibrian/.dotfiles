@@ -179,7 +179,7 @@ newdev() {
 		name="${panename}$((existing_panes + 1))"
 	fi
 
-	tmux new-window -n "${panename}" -c "${destination}" -d 'emacs -nw'
+	tmux new-window -n "${panename}" -c "${destination}" -d '/opt/local/bin/emacs -nw'
 	tmux split-window -v -t "${panename}" -c "${destination}" -l 20 -d
 }
 # ================ utilities ==========================================

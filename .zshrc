@@ -106,6 +106,7 @@ addfpath() {
 }
 
 addfpath "$HOME/.local/share/zsh/functions"
+#addfpath "/opt/homebrew/share/zsh/site-functions"
 
 
 # allow one error every three characters typed in approximate completer
