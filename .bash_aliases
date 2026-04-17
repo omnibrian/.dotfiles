@@ -14,7 +14,7 @@ export AWS_PAGER=               # disable awscli auto-paging
 export PYTHONUSERBASE=~/.local
 
 addpath() {
-	if ! [[ "--force" == "$2" ]] || [[ "$PATH" =~ "$1" ]] ; then
+	if [[ "--force" == "$2" ]] || [[ ! "$PATH" =~ "$1" ]] ; then
 		export PATH="$1:$PATH"
 	fi
 }
