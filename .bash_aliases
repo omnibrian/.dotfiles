@@ -26,7 +26,7 @@ addpath "$HOME/go/bin"
 addpath "$HOME/.cargo/bin"
 
 if [[ -f "$HOME/.paths" ]] ; then
-	cat "$HOME/.paths" | grep -vE '^(#.*)?$' | envsubst | tac | while read -r localpath ; do
+	cat "$HOME/.paths" | grep -vE '^(#.*)?$' | envsubst | tail -r | while read -r localpath ; do
 		addpath "${localpath}" --force
 	done
 fi
