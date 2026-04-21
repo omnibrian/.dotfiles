@@ -52,15 +52,15 @@ else
 endif
 
 yabai:
-ifeq ($(OS),macOS)
+ifeq ($(OS),Darwin)
 	@echo ">> installing yabai and skhd"
-	brew install koekeishiya/formulae/yabai
-	brew install koekeishiya/formulae/skhd
+	brew install asmvik/formulae/yabai
+	brew install asmvik/formulae/skhd
 	@echo ">> yabai installed"
 	@echo
 	@echo ">> To start yabai, run the following commands once dotbot has run:"
-	@echo "    brew services start yabai"
-	@echo "    brew services start skhd"
+	@echo "    yabai --start-service"
+	@echo "    skhd --start-service"
 else
 	@echo ">> skipping yabai install for non-macos system"
 	@echo
