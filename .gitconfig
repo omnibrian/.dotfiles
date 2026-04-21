@@ -2,6 +2,7 @@
 	prune = true
 [push]
 	followTags = true
+	default = upstream
 [log]
 	mailmap = true
 [pull]
