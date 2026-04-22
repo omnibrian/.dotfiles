@@ -230,6 +230,11 @@ bashcompinit
 if command -v aws_completer &>/dev/null ; then
 	complete -C aws_completer aws
 fi
+
+# terraform autocompletion
+if command -v terraform &>/dev/null ; then
+	complete -o nospace -C terraform terraform
+fi
 # ================ completion =========================================
 
 
