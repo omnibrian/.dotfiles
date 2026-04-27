@@ -33,8 +33,15 @@
 	bad = bisect bad
 	oops = commit --amend --no-edit
 	unmerged = !git ls-files --unmerged --format \"%(path)\" | sort -u
+	d = difftool
 [core]
 	excludesFile = ~/.gitignore
 	commentchar = %
 [init]
 	defaultBranch = main
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[difftool "vimdiff"]
+	cmd = vimdiff \"$LOCAL\" \"$REMOTE\"
